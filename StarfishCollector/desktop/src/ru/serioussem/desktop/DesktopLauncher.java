@@ -6,6 +6,12 @@ import ru.serioussem.StarfishCollector;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		new LwjglApplication(new StarfishCollector(), "Starfish Collector", 1200, 900);
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 1200;
+		config.height = 900;
+		config.samples=3;
+//		config.fullscreen = true;
+		config.title = "Starfish Collector";
+		new LwjglApplication(new StarfishCollector(), config);
 	}
 }
