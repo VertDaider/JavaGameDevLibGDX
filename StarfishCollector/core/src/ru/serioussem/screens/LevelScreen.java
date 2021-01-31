@@ -1,4 +1,4 @@
-package ru.serioussem;
+package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -6,12 +6,13 @@ import ru.serioussem.actors.*;
 
 import java.util.ArrayList;
 
-public class StarfishCollector extends GameBeta {
+public class LevelScreen extends BaseScreen{
     private Turtle turtle;
     private boolean win;
     private ArrayList<BaseActor> starfishList;
     private ArrayList<BaseActor> rockList;
 
+    @Override
     public void initialize() {
         BaseActor ocean = new BaseActor(0, 0, mainStage);
         ocean.loadTexture("water-border.jpg");
@@ -36,6 +37,7 @@ public class StarfishCollector extends GameBeta {
         win = false;
     }
 
+    @Override
     public void update(float dt) {
         for (BaseActor rockActor : rockList) {
             turtle.preventOverlap(rockActor);
@@ -69,4 +71,8 @@ public class StarfishCollector extends GameBeta {
         }
     }
 
+    @Override
+    public void resize(int width, int height) {
+
+    }
 }
