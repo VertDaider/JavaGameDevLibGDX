@@ -10,5 +10,6 @@ public class Starfish extends BaseActor {
         loadTexture("starfish.png");
         Action spin = Actions.rotateBy(30, 1);
         this.addAction(Actions.forever(spin));
+        setBoundaryPolygon(8);
     }
 }
