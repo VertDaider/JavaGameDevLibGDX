@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.serioussem.actors.*;
 
-public class StarfishCollector extends GameBeta {
+public class RockCleaner extends GameBeta {
     private Turtle turtle;
     private Rock rock;
     private Whirlpool whirlpool;
@@ -48,9 +48,4 @@ public class StarfishCollector extends GameBeta {
         }
     }
 
-    private void collectedStarfish(Starfish starfish) {
-        if (turtle.overlaps(starfish) && !starfish.isCollected()) {
-
-        }
-    }
 }

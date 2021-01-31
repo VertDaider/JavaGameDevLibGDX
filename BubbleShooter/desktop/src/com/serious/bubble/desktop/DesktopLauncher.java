@@ -1,17 +1,16 @@
-package ru.serioussem.desktop;
+package com.serious.bubble.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.RockCleaner;
+import com.serious.bubble.BubbleGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1200;
+		config.width = 900;
 		config.height = 900;
-		config.samples=3;
-//		config.fullscreen = true;
-		config.title = "Rock Cleaner";
-		new LwjglApplication(new RockCleaner(), config);
+		config.title = "Bubble Shooter";
+		config.samples=3;    //  antialiasing
+		new LwjglApplication(new BubbleGame(), config);
 	}
 }
