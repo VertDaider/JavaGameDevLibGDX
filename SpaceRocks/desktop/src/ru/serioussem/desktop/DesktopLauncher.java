@@ -2,7 +2,7 @@ package ru.serioussem.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.SpaceRocks;
+import ru.serioussem.SpaceGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		config.samples=3;
 //		config.fullscreen = true;
 		config.title = "Space Rocks";
-		new LwjglApplication(new SpaceRocks(), config);
+		new LwjglApplication(new SpaceGame(), config);
 	}
 }
