@@ -28,6 +28,9 @@ public class LevelScreen extends BaseScreen{
         if (keycode == Input.Keys.X) {
             spaceship.warp();
         }
+        if (keycode == Input.Keys.SPACE) {
+            spaceship.shoot();
+        }
         return false;
     }
 }

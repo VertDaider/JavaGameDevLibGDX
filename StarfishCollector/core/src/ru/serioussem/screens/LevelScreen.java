@@ -4,13 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.serioussem.actors.*;
 
-import java.util.ArrayList;
-
-public class LevelScreen extends BaseScreen{
+public class LevelScreen extends BaseScreen {
     private Turtle turtle;
     private boolean win;
-    private ArrayList<BaseActor> starfishList;
-    private ArrayList<BaseActor> rockList;
 
     @Override
     public void initialize() {
@@ -19,19 +15,25 @@ public class LevelScreen extends BaseScreen{
         ocean.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         BaseActor.setWorldBounds(ocean);
 
-        starfishList = new ArrayList<>();
-        rockList = new ArrayList<>();
-        starfishList.add(new Starfish(580, 180, mainStage));
-        starfishList.add(new Starfish(220, 580, mainStage));
-        starfishList.add(new Starfish(700, 420, mainStage));
-        starfishList.add(new Starfish(600, 800, mainStage));
-        starfishList.add(new Starfish(1000, 800, mainStage));
-        starfishList.add(new Starfish(1100, 200, mainStage));
+        new Starfish(580, 180, mainStage);
+        new Starfish(1020, 580, mainStage);
+        new Starfish(700, 420, mainStage);
+        new Starfish(600, 800, mainStage);
+        new Starfish(1000, 800, mainStage);
+        new Starfish(1100, 270, mainStage);
+        new Starfish(900, 240, mainStage);
+        new Starfish(100, 250, mainStage);
+        new Starfish(150, 530, mainStage);
+        new Starfish(330, 630, mainStage);
+        new Starfish(420, 510, mainStage);
 
-        rockList.add(new Rock(700, 650, mainStage));
-        rockList.add(new Rock(100, 300, mainStage));
-        rockList.add(new Rock(600, 450, mainStage));
-        rockList.add(new Rock(800, 250, mainStage));
+        new Rock(700, 650, mainStage);
+        new Rock(100, 300, mainStage);
+        new Rock(600, 450, mainStage);
+        new Rock(450, 250, mainStage);
+        new Rock(400, 550, mainStage);
+        new Rock(100, 650, mainStage);
+        new Rock(900, 150, mainStage);
 
         turtle = new Turtle(20, 20, mainStage);
         win = false;
@@ -39,20 +41,19 @@ public class LevelScreen extends BaseScreen{
 
     @Override
     public void update(float dt) {
-        for (BaseActor rockActor : rockList) {
+        for (BaseActor rockActor : BaseActor.getList(mainStage, "ru.serioussem.actors.Rock")) {
             turtle.preventOverlap(rockActor);
 //        the turtle is pushing the rock!
 //        rock.preventOverlap(turtle);
         }
 
-        for (int i = 0; i < starfishList.size(); i++) {
-            Starfish starfish = (Starfish) starfishList.get(i);
+        for (BaseActor starfishActor : BaseActor.getList(mainStage, "ru.serioussem.actors.Starfish")) {
+            Starfish starfish = (Starfish) starfishActor;
             if (turtle.overlaps(starfish) && !starfish.collected) {
                 starfish.collected = true;
                 starfish.clearActions();
                 starfish.addAction(Actions.fadeOut(1));
                 starfish.addAction(Actions.after(Actions.removeActor()));
-                starfishList.remove(starfish);
 
                 Whirlpool whirl = new Whirlpool(0, 0, mainStage);
                 whirl.centerAtActor(starfish);
@@ -60,7 +61,7 @@ public class LevelScreen extends BaseScreen{
             }
         }
 
-        if (starfishList.size() == 0 && !win) {
+        if (BaseActor.count(mainStage, "ru.serioussem.actors.Starfish") == 0 && !win) {
             win = true;
             BaseActor youWinMessage = new BaseActor(0, 0, uiStage);
             youWinMessage.loadTexture("you-win.png");

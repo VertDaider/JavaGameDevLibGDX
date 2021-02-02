@@ -319,4 +319,26 @@ public class BaseActor extends Actor {
                 worldBounds.height - cam.viewportHeight / 2);
         cam.update();
     }
+
+    public static ArrayList<BaseActor> getList(Stage stage, String className) {
+        ArrayList<BaseActor> list = new ArrayList<BaseActor>();
+
+        Class theClass = null;
+        try {
+            theClass = Class.forName(className);
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        for (Actor a : stage.getActors()) {
+            if (theClass.isInstance(a))
+                list.add((BaseActor) a);
+        }
+
+        return list;
+    }
+
+    public static int count(Stage stage, String className) {
+        return getList(stage, className).size();
+    }
 }
