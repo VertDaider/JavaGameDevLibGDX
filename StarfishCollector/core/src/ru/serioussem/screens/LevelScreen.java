@@ -1,6 +1,7 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.serioussem.actors.*;
 
@@ -15,7 +16,35 @@ public class LevelScreen extends BaseScreen {
         ocean.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         BaseActor.setWorldBounds(ocean);
 
-        new Starfish(580, 180, mainStage);
+        int MAX_COUNT_STARFISH = 10;
+        for (int i = 0; i < MAX_COUNT_STARFISH; i++) {
+            int x = MathUtils.random(Gdx.graphics.getWidth() - 60);
+            int y = MathUtils.random(Gdx.graphics.getHeight() - 60);
+            createStarfish(x, y);
+        }
+        int MAX_COUNT_ROCKS = 6;
+        for (int j = 0; j < MAX_COUNT_ROCKS; j++) {
+            int x = MathUtils.random(Gdx.graphics.getWidth() - 60);
+            int y = MathUtils.random(Gdx.graphics.getHeight() - 60);
+            createRock(x, y);
+        }
+// TODO: 02.02.2021 сделать проверку дублирования объектов в одном месте
+
+//        createObjectsFromCoord();
+
+        turtle = new Turtle(20, 20, mainStage);
+        win = false;
+    }
+
+    private void createRock(int random, int random1) {
+        new Rock(random, random1, mainStage);
+    }
+
+    private void createStarfish(int random, int random1) {
+        new Starfish(random, random1, mainStage);
+    }
+
+    private void createObjectsFromCoord() {
         new Starfish(1020, 580, mainStage);
         new Starfish(700, 420, mainStage);
         new Starfish(600, 800, mainStage);
@@ -34,9 +63,6 @@ public class LevelScreen extends BaseScreen {
         new Rock(400, 550, mainStage);
         new Rock(100, 650, mainStage);
         new Rock(900, 150, mainStage);
-
-        turtle = new Turtle(20, 20, mainStage);
-        win = false;
     }
 
     @Override
