@@ -15,6 +15,7 @@ public class Laser extends BaseActor{
         setSpeed(400);
         setMaxSpeed(400);
         setDeceleration(0);
+        setBoundaryPolygon(8);
     }
 
     public void act (float dt) {

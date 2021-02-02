@@ -23,7 +23,6 @@ public class Spaceship extends BaseActor {
         addActor(thrusters);
         thrusters.setPosition(-thrusters.getWidth(), getHeight() / 2 - thrusters.getHeight() / 2);
 
-
         shield = new Shield(0, 0, s);
         addActor(shield);
         shield.centerAtPosition(getWidth() / 2, getHeight() / 2);
