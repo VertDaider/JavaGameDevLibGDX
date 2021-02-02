@@ -1,6 +1,7 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import ru.serioussem.actors.BaseActor;
 import ru.serioussem.actors.Spaceship;
 
@@ -20,5 +21,13 @@ public class LevelScreen extends BaseScreen{
     @Override
     public void update(float dt) {
 
+    }
+
+    @Override
+    public boolean keyDown( int keycode) {
+        if (keycode == Input.Keys.X) {
+            spaceship.warp();
+        }
+        return false;
     }
 }
