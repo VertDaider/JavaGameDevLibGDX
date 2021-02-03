@@ -2,6 +2,7 @@ package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.serioussem.actors.BaseActor;
 import ru.serioussem.actors.Explosion;
 import ru.serioussem.actors.Rock;
@@ -9,6 +10,7 @@ import ru.serioussem.actors.Spaceship;
 
 public class LevelScreen extends BaseScreen{
     private Spaceship spaceship;
+    private boolean gameOver;
 
     @Override
     public void initialize() {
@@ -16,6 +18,7 @@ public class LevelScreen extends BaseScreen{
         space.loadTexture("space.png");
         space.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         BaseActor.setWorldBounds(space);
+        gameOver = false;
 
         spaceship = new Spaceship(400, 300, mainStage);
 
@@ -38,6 +41,12 @@ public class LevelScreen extends BaseScreen{
                     boom.centerAtActor(spaceship);
                     spaceship.remove();
                     spaceship.setPosition(-1000,-1000);
+                    BaseActor messageLose = new BaseActor(0,0, uiStage);
+                    messageLose.loadTexture("message-lose.png");
+                    messageLose.centerAtPosition((float) Gdx.graphics.getWidth() / 2,(float) Gdx.graphics.getHeight() / 2);
+                    messageLose.setOpacity(0);
+                    messageLose.addAction( Actions.fadeIn(1) );
+                    gameOver = true;
                 } else {
                     spaceship.shieldPower -= 34;
                     Explosion boom = new Explosion(0,0,mainStage);
@@ -54,6 +63,15 @@ public class LevelScreen extends BaseScreen{
                     rockActor.remove();
                 }
             }
+        }
+
+        if (!gameOver && BaseActor.count(mainStage,"ru.serioussem.actors.Rock" ) == 0) {
+            BaseActor messageWin = new BaseActor(0,0,mainStage);
+            messageWin.loadTexture("message-win.png");
+            messageWin.centerAtPosition((float) Gdx.graphics.getWidth() / 2,(float) Gdx.graphics.getHeight() / 2);
+            messageWin.setOpacity(0);
+            messageWin.addAction(Actions.fadeIn(1));
+            gameOver = true;
         }
     }
 
