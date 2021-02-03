@@ -1,11 +1,22 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import ru.serioussem.BaseGame;
 import ru.serioussem.actors.*;
 
+import java.util.ArrayList;
+
 public class LevelScreen extends BaseScreen {
+    private final int MAX_COUNT_OBJECTS = 40;
+    private final int WORLD_HEIGHT = 1800;
+    private final int WORLD_WIDTH = 2400;
+
+    private Label starfishLabel;
     private Turtle turtle;
     private boolean win;
 
@@ -13,35 +24,49 @@ public class LevelScreen extends BaseScreen {
     public void initialize() {
         BaseActor ocean = new BaseActor(0, 0, mainStage);
         ocean.loadTexture("water-border.jpg");
-        ocean.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ocean.setSize(WORLD_WIDTH, WORLD_HEIGHT);
         BaseActor.setWorldBounds(ocean);
 
-        int MAX_COUNT_STARFISH = 10;
-        for (int i = 0; i < MAX_COUNT_STARFISH; i++) {
-            int x = MathUtils.random(Gdx.graphics.getWidth() - 60);
-            int y = MathUtils.random(Gdx.graphics.getHeight() - 60);
-            createStarfish(x, y);
-        }
-        int MAX_COUNT_ROCKS = 6;
-        for (int j = 0; j < MAX_COUNT_ROCKS; j++) {
-            int x = MathUtils.random(Gdx.graphics.getWidth() - 60);
-            int y = MathUtils.random(Gdx.graphics.getHeight() - 60);
-            createRock(x, y);
-        }
+        starfishLabel = new Label("Starfish left: ", BaseGame.labelStyle);
+        starfishLabel.setColor(Color.CYAN);
+        starfishLabel.setPosition(20, 830);
+        uiStage.addActor(starfishLabel);
+
+        createObjectsRandom();
+
+
 // TODO: 02.02.2021 сделать проверку дублирования объектов в одном месте
 
 //        createObjectsFromCoord();
 
-        turtle = new Turtle(20, 20, mainStage);
+        turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
         win = false;
     }
 
-    private void createRock(int random, int random1) {
-        new Rock(random, random1, mainStage);
-    }
-
-    private void createStarfish(int random, int random1) {
-        new Starfish(random, random1, mainStage);
+    private void createObjectsRandom() {
+        ArrayList<Rectangle> rectangles = new ArrayList<>();
+        //создаем прямоугольник с рандом коорднатами, шириной 60 чтобы не выходил за край
+        while (rectangles.size() != MAX_COUNT_OBJECTS) {
+            int x = MathUtils.random(WORLD_WIDTH - 60);
+            int y = MathUtils.random(WORLD_HEIGHT - 60);
+            rectangles.add(new Rectangle(x, y, 60, 60));
+            // удаляем если есть наложение
+            for (int i = 0; i < rectangles.size() - 1; i++) {
+                for (int j = i + 1; j < rectangles.size(); j++) {
+                    if (rectangles.get(i).overlaps(rectangles.get(j))) {
+                        rectangles.remove(i);
+                    }
+                }
+            }
+        }
+        // создаем объекты по листу
+        for (int i = 0; i < rectangles.size(); i++) {
+            if (i < rectangles.size() / 2) {
+                new Rock(rectangles.get(i).x, rectangles.get(i).y, mainStage);
+            } else {
+                new Starfish(rectangles.get(i).x, rectangles.get(i).y, mainStage);
+            }
+        }
     }
 
     private void createObjectsFromCoord() {
@@ -96,6 +121,8 @@ public class LevelScreen extends BaseScreen {
             youWinMessage.addAction(Actions.delay(1));
             youWinMessage.addAction(Actions.after(Actions.fadeIn(1)));
         }
+
+        starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, "ru.serioussem.actors.Starfish"));
     }
 
     @Override
