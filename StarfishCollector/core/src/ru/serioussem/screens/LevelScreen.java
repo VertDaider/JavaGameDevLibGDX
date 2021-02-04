@@ -1,12 +1,14 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import ru.serioussem.BaseGame;
+import ru.serioussem.StarfishGame;
 import ru.serioussem.actors.*;
 
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ public class LevelScreen extends BaseScreen {
     private final int MAX_COUNT_OBJECTS = 40;
     private final int WORLD_HEIGHT = 1800;
     private final int WORLD_WIDTH = 2400;
+    private final String classRock = "ru.serioussem.actors.Rock";
+    private final String classStarfish = "ru.serioussem.actors.Starfish";
 
     private Label starfishLabel;
     private Turtle turtle;
@@ -33,10 +37,6 @@ public class LevelScreen extends BaseScreen {
         uiStage.addActor(starfishLabel);
 
         createObjectsRandom();
-
-
-// TODO: 02.02.2021 сделать проверку дублирования объектов в одном месте
-
 //        createObjectsFromCoord();
 
         turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
@@ -92,13 +92,13 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void update(float dt) {
-        for (BaseActor rockActor : BaseActor.getList(mainStage, "ru.serioussem.actors.Rock")) {
+        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
             turtle.preventOverlap(rockActor);
 //        the turtle is pushing the rock!
 //        rock.preventOverlap(turtle);
         }
 
-        for (BaseActor starfishActor : BaseActor.getList(mainStage, "ru.serioussem.actors.Starfish")) {
+        for (BaseActor starfishActor : BaseActor.getList(mainStage, classStarfish)) {
             Starfish starfish = (Starfish) starfishActor;
             if (turtle.overlaps(starfish) && !starfish.collected) {
                 starfish.collected = true;
@@ -112,17 +112,19 @@ public class LevelScreen extends BaseScreen {
             }
         }
 
-        if (BaseActor.count(mainStage, "ru.serioussem.actors.Starfish") == 0 && !win) {
-            win = true;
-            BaseActor youWinMessage = new BaseActor(0, 0, uiStage);
-            youWinMessage.loadTexture("you-win.png");
-            youWinMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-            youWinMessage.setOpacity(0);
-            youWinMessage.addAction(Actions.delay(1));
-            youWinMessage.addAction(Actions.after(Actions.fadeIn(1)));
+        if (BaseActor.count(mainStage, classStarfish) == 0 && !win) {
+            BaseActor continueMessage = new BaseActor(0, 0, uiStage);
+            continueMessage.loadTexture("message-continue.png");
+            continueMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+            continueMessage.setOpacity(0);
+            continueMessage.addAction(Actions.delay(1));
+            continueMessage.addAction(Actions.after(Actions.fadeIn(1)));
+            if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+                StarfishGame.setActiveScreen(new LevelScreen2());
+            }
         }
 
-        starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, "ru.serioussem.actors.Starfish"));
+        starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
     }
 
     @Override
