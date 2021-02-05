@@ -3,10 +3,17 @@ package ru.serioussem.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import ru.serioussem.BaseGame;
 import ru.serioussem.StarfishGame;
 import ru.serioussem.actors.*;
@@ -35,6 +42,25 @@ public class LevelScreen extends BaseScreen {
         starfishLabel.setColor(Color.CYAN);
         starfishLabel.setPosition(20, 830);
         uiStage.addActor(starfishLabel);
+
+        ButtonStyle buttonStyle = new ButtonStyle();
+        Texture buttonTex = new Texture(Gdx.files.internal("undo.png"));
+        TextureRegion buttonRegion = new TextureRegion(buttonTex);
+        buttonStyle.up = new TextureRegionDrawable(buttonRegion);
+        Button restartButton = new Button(buttonStyle);
+        restartButton.setColor(Color.CYAN);
+        restartButton.setPosition(1120, 820);
+        uiStage.addActor(restartButton);
+
+        restartButton.addListener(
+                (Event e) -> {
+                    if (!(e instanceof InputEvent) || !((InputEvent) e).getType().equals(InputEvent.Type.touchDown)) {
+                        return false;
+                    }
+                    StarfishGame.setActiveScreen(new LevelScreen());
+                    return false;
+                }
+        );
 
         createObjectsRandom();
 //        createObjectsFromCoord();
