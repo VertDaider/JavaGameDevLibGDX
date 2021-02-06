@@ -18,17 +18,17 @@ public class MenuScreen extends BaseScreen {
 
         BaseActor title = new BaseActor(0, 0, mainStage);
         title.loadTexture("starfish-collector.png");
-        title.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        title.moveBy(0, 100);
+//        title.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+//        title.moveBy(0, 100);
 
         TextButton startLevelButton = new TextButton("Level 1", BaseGame.textButtonStyle);
-        startLevelButton.setPosition(400, 300);
+//        startLevelButton.setPosition(400, 300);
         uiStage.addActor(startLevelButton);
         TextButton startLevelTwoButton = new TextButton("Level 2", BaseGame.textButtonStyle);
-        startLevelTwoButton.setPosition(400, 150);
+//        startLevelTwoButton.setPosition(400, 150);
         uiStage.addActor(startLevelTwoButton);
         TextButton quitButton = new TextButton("Quit", BaseGame.textButtonStyle);
-        quitButton.setPosition(700, 300);
+//        quitButton.setPosition(700, 300);
         uiStage.addActor(quitButton);
 
         startLevelButton.addListener(
@@ -63,6 +63,12 @@ public class MenuScreen extends BaseScreen {
                     return false;
                 }
         );
+
+        uiTable.add(title).colspan(3);
+        uiTable.row();
+        uiTable.add(startLevelButton);
+        uiTable.add(startLevelTwoButton);
+        uiTable.add(quitButton);
     }
 
     @Override

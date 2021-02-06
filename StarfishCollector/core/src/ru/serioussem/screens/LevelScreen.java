@@ -34,6 +34,7 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void initialize() {
+        win = false;
         BaseActor ocean = new BaseActor(0, 0, mainStage);
         ocean.loadTexture("water-border.jpg");
         ocean.setSize(WORLD_WIDTH, WORLD_HEIGHT);
@@ -41,8 +42,6 @@ public class LevelScreen extends BaseScreen {
 
         starfishLabel = new Label("Starfish left: ", BaseGame.labelStyle);
         starfishLabel.setColor(Color.CYAN);
-        starfishLabel.setPosition(20, 830);
-        uiStage.addActor(starfishLabel);
 
         ButtonStyle buttonStyle = new ButtonStyle();
         Texture buttonTex = new Texture(Gdx.files.internal("undo.png"));
@@ -50,8 +49,6 @@ public class LevelScreen extends BaseScreen {
         buttonStyle.up = new TextureRegionDrawable(buttonRegion);
         Button restartButton = new Button(buttonStyle);
         restartButton.setColor(Color.CYAN);
-        restartButton.setPosition(1120, 820);
-        uiStage.addActor(restartButton);
 
         turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
 
@@ -68,7 +65,10 @@ public class LevelScreen extends BaseScreen {
         createObjectsRandom();
 //        createObjectsFromCoord();
 
-        win = false;
+        uiTable.pad(10);
+        uiTable.add(starfishLabel).top();
+        uiTable.add().expandX().expandY();
+        uiTable.add(restartButton).top();
     }
 
     private void createObjectsRandom() {
