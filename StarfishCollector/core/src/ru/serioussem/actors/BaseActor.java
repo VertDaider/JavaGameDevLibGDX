@@ -307,6 +307,21 @@ public class BaseActor extends Actor {
         }
     }
 
+    public boolean isWithinDistance(float distance, BaseActor other) {
+        Polygon poly1 = this.getBoundaryPolygon();
+        float scaleX = (this.getWidth() + 2 * distance) / this.getWidth();
+        float scaleY = (this.getHeight() + 2 * distance) / this.getHeight();
+        poly1.setScale(scaleX, scaleY);
+
+        Polygon poly2 = other.getBoundaryPolygon();
+
+        if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle())) {
+            return false;
+        }
+
+        return Intersector.overlapConvexPolygons(poly1, poly2);
+    }
+
     public void alignCamera() {
         Camera cam = this.getStage().getCamera();
         Viewport v = this.getStage().getViewport();

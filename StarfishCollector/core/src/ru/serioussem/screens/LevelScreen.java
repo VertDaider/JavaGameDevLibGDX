@@ -23,12 +23,14 @@ import java.util.ArrayList;
 
 public class LevelScreen extends BaseScreen {
     private final int MAX_COUNT_OBJECTS = 40;
-    private final int WORLD_HEIGHT = 1800;
     private final int WORLD_WIDTH = 2400;
+    private final int WORLD_HEIGHT = 1800;
     private final String classRock = "ru.serioussem.actors.Rock";
     private final String classStarfish = "ru.serioussem.actors.Starfish";
+    private final String classSign = "ru.serioussem.actors.Sign";
 
     private Label starfishLabel;
+    private DialogBox dialogBox;
     private Turtle turtle;
     private boolean win;
 
@@ -63,12 +65,89 @@ public class LevelScreen extends BaseScreen {
         );
 
         createObjectsRandom();
-//        createObjectsFromCoord();
+
+        Sign sign1 = new Sign(100,500,mainStage);
+        sign1.setText("West Starfish Bay");
+        Sign sign2 = new Sign(2000,300,mainStage);
+        sign2.setText("East Starfish Bay");
+
+        dialogBox = new DialogBox(0,0,uiStage);
+        dialogBox.setBackgroundColor(Color.TAN);
+        dialogBox.setFontColor(Color.BROWN);
+        dialogBox.setDialogSize(1100,100);
+        dialogBox.setFontScale(0.8f);
+        dialogBox.alignCenter();
+        dialogBox.setVisible(false);
 
         uiTable.pad(10);
         uiTable.add(starfishLabel).top();
         uiTable.add().expandX().expandY();
         uiTable.add(restartButton).top();
+        uiTable.row();
+        uiTable.add(dialogBox).colspan(3);
+    }
+
+    @Override
+    public void update(float dt) {
+        checkCollision();
+        checkWin();
+        checkSign();
+
+        starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
+    }
+
+    private void checkSign() {
+        for (BaseActor signActor : BaseActor.getList(mainStage, classSign)) {
+            Sign sign = (Sign) signActor;
+            turtle.preventOverlap(sign);
+            boolean nearby = turtle.isWithinDistance(4, sign);
+
+            if (nearby && !sign.isViewing()) {
+                dialogBox.setText(sign.getText());
+                dialogBox.setVisible(true);
+                sign.setViewing(true);
+            }
+
+            if (sign.isViewing() && !nearby) {
+                dialogBox.setText(" ");
+                dialogBox.setVisible(false);
+                sign.setViewing(false);
+            }
+        }
+    }
+
+    private void checkWin() {
+        if (BaseActor.count(mainStage, classStarfish) == 0 && !win) {
+            BaseActor continueMessage = new BaseActor(0, 0, uiStage);
+            continueMessage.loadTexture("message-continue.png");
+            continueMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+            continueMessage.setOpacity(0);
+            continueMessage.addAction(Actions.delay(1));
+            continueMessage.addAction(Actions.after(Actions.fadeIn(1)));
+            if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+                StarfishGame.setActiveScreen(new LevelScreen2());
+            }
+        }
+    }
+
+    private void checkCollision() {
+        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
+            turtle.preventOverlap(rockActor);
+        }
+
+        for (BaseActor starfishActor : BaseActor.getList(mainStage, classStarfish)) {
+            Starfish starfish = (Starfish) starfishActor;
+            if (turtle.overlaps(starfish) && !starfish.collected) {
+                starfish.collected = true;
+                starfish.clearActions();
+                starfish.addAction(Actions.fadeOut(1));
+                starfish.addAction(Actions.after(Actions.removeActor()));
+
+                Whirlpool whirl = new Whirlpool(0, 0, mainStage);
+                whirl.centerAtActor(starfish);
+                whirl.setOpacity(0.25f);
+            }
+        }
     }
 
     private void createObjectsRandom() {
@@ -117,43 +196,6 @@ public class LevelScreen extends BaseScreen {
         new Rock(400, 550, mainStage);
         new Rock(100, 650, mainStage);
         new Rock(900, 150, mainStage);
-    }
-
-    @Override
-    public void update(float dt) {
-        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
-            turtle.preventOverlap(rockActor);
-//        the turtle is pushing the rock!
-//        rock.preventOverlap(turtle);
-        }
-
-        for (BaseActor starfishActor : BaseActor.getList(mainStage, classStarfish)) {
-            Starfish starfish = (Starfish) starfishActor;
-            if (turtle.overlaps(starfish) && !starfish.collected) {
-                starfish.collected = true;
-                starfish.clearActions();
-                starfish.addAction(Actions.fadeOut(1));
-                starfish.addAction(Actions.after(Actions.removeActor()));
-
-                Whirlpool whirl = new Whirlpool(0, 0, mainStage);
-                whirl.centerAtActor(starfish);
-                whirl.setOpacity(0.25f);
-            }
-        }
-
-        if (BaseActor.count(mainStage, classStarfish) == 0 && !win) {
-            BaseActor continueMessage = new BaseActor(0, 0, uiStage);
-            continueMessage.loadTexture("message-continue.png");
-            continueMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-            continueMessage.setOpacity(0);
-            continueMessage.addAction(Actions.delay(1));
-            continueMessage.addAction(Actions.after(Actions.fadeIn(1)));
-            if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-                StarfishGame.setActiveScreen(new LevelScreen2());
-            }
-        }
-
-        starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
     }
 
     @Override
