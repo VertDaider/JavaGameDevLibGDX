@@ -2,11 +2,19 @@ package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import ru.serioussem.BaseGame;
+import ru.serioussem.StarfishGame;
 import ru.serioussem.actors.*;
 
 import java.util.ArrayList;
@@ -36,9 +44,29 @@ public class LevelScreen2 extends BaseScreen {
         starfishLabel.setPosition(20, 830);
         uiStage.addActor(starfishLabel);
 
-        createObjectsRandom();
+        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        Texture buttonTex = new Texture(Gdx.files.internal("undo.png"));
+        TextureRegion buttonRegion = new TextureRegion(buttonTex);
+        buttonStyle.up = new TextureRegionDrawable(buttonRegion);
+        Button restartButton = new Button(buttonStyle);
+        restartButton.setColor(Color.CYAN);
+        restartButton.setPosition(1120, 820);
+        uiStage.addActor(restartButton);
 
         turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
+
+        restartButton.addListener(
+                (Event e) ->
+                {
+                    InputEvent ie = (InputEvent) e;
+                    if (ie.getType().equals(InputEvent.Type.touchDown))
+                        StarfishGame.setActiveScreen(new LevelScreen());
+                    return false;
+                }
+        );
+
+        createObjectsRandom();
+
         win = false;
         gameOver = false;
     }
@@ -55,7 +83,6 @@ public class LevelScreen2 extends BaseScreen {
                 gameOver = true;
                 turtle.clearActions();
                 turtle.addAction(Actions.fadeOut(1));
-                turtle.addAction(Actions.after(Actions.removeActor()));
             }
         }
 
@@ -98,14 +125,15 @@ public class LevelScreen2 extends BaseScreen {
     private void createObjectsRandom() {
         ArrayList<Rectangle> rectangles = new ArrayList<>();
         //создаем прямоугольник с рандом коорднатами, шириной 60 чтобы не выходил за край
+        Rectangle positionTurtle = new Rectangle(turtle.getX(), turtle.getY(), turtle.getWidth(), turtle.getHeight());
         while (rectangles.size() != MAX_COUNT_OBJECTS) {
             int x = MathUtils.random(WORLD_WIDTH - 60);
             int y = MathUtils.random(WORLD_HEIGHT - 60);
-            rectangles.add(new Rectangle(x, y, 60, 60));
+            rectangles.add(new Rectangle(x, y, 100, 100));
             // удаляем если есть наложение
             for (int i = 0; i < rectangles.size() - 1; i++) {
                 for (int j = i + 1; j < rectangles.size(); j++) {
-                    if (rectangles.get(i).overlaps(rectangles.get(j))) {
+                    if (rectangles.get(i).overlaps(rectangles.get(j)) || rectangles.get(i).overlaps(positionTurtle)) {
                         rectangles.remove(i);
                     }
                 }

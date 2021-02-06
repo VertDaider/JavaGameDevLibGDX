@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -52,12 +53,14 @@ public class LevelScreen extends BaseScreen {
         restartButton.setPosition(1120, 820);
         uiStage.addActor(restartButton);
 
+        turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
+
         restartButton.addListener(
-                (Event e) -> {
-                    if (!(e instanceof InputEvent) || !((InputEvent) e).getType().equals(InputEvent.Type.touchDown)) {
-                        return false;
-                    }
-                    StarfishGame.setActiveScreen(new LevelScreen());
+                (Event e) ->
+                {
+                    InputEvent ie = (InputEvent) e;
+                    if (ie.getType().equals(Type.touchDown))
+                        StarfishGame.setActiveScreen(new LevelScreen());
                     return false;
                 }
         );
@@ -65,21 +68,21 @@ public class LevelScreen extends BaseScreen {
         createObjectsRandom();
 //        createObjectsFromCoord();
 
-        turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
         win = false;
     }
 
     private void createObjectsRandom() {
         ArrayList<Rectangle> rectangles = new ArrayList<>();
         //создаем прямоугольник с рандом коорднатами, шириной 60 чтобы не выходил за край
+        Rectangle positionTurtle = new Rectangle(turtle.getX(), turtle.getY(), turtle.getWidth(), turtle.getHeight());
         while (rectangles.size() != MAX_COUNT_OBJECTS) {
             int x = MathUtils.random(WORLD_WIDTH - 60);
             int y = MathUtils.random(WORLD_HEIGHT - 60);
-            rectangles.add(new Rectangle(x, y, 60, 60));
+            rectangles.add(new Rectangle(x, y, 100, 100));
             // удаляем если есть наложение
             for (int i = 0; i < rectangles.size() - 1; i++) {
                 for (int j = i + 1; j < rectangles.size(); j++) {
-                    if (rectangles.get(i).overlaps(rectangles.get(j))) {
+                    if (rectangles.get(i).overlaps(rectangles.get(j)) || rectangles.get(i).overlaps(positionTurtle)) {
                         rectangles.remove(i);
                     }
                 }
