@@ -3,7 +3,10 @@ package ru.serioussem.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import ru.serioussem.BaseGame;
 import ru.serioussem.NewTanks;
 import ru.serioussem.actors.BaseActor;
@@ -19,18 +22,39 @@ public class MenuScreen extends BaseScreen {
 
         label = new Label("New Tanks", BaseGame.labelStyle);
         label.setColor(Color.FOREST);
-        label.setPosition(400, 550);
-        uiStage.addActor(label);
 
-//        BaseActor title = new BaseActor(0, 0, mainStage);
-//        title.loadTexture("starfish-collector.png");
-//        title.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-//        title.moveBy(0, 100);
-//
-//        BaseActor start = new BaseActor(0, 0, mainStage);
-//        start.loadTexture("message-start.png");
-//        start.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-//        start.moveBy(0, -100);
+        TextButton startLevelButton = new TextButton("Start", BaseGame.textButtonStyle);
+        uiStage.addActor(startLevelButton);
+        TextButton quitButton = new TextButton("Quit", BaseGame.textButtonStyle);
+        uiStage.addActor(quitButton);
+
+        startLevelButton.addListener(
+                (Event e) ->
+                {
+                    InputEvent ie = (InputEvent) e;
+                    if (ie.getType().equals(InputEvent.Type.touchDown)) {
+                        NewTanks.setActiveScreen(new LevelScreen());
+                    }
+                    return false;
+                }
+        );
+
+        quitButton.addListener(
+                (Event e) ->
+                {
+                    InputEvent ie = (InputEvent) e;
+                    if (ie.getType().equals(InputEvent.Type.touchDown)) {
+                        Gdx.app.exit();
+                    }
+                    return false;
+                }
+        );
+
+        uiTable.add(label).colspan(2);
+        uiTable.row();
+        uiTable.add(startLevelButton);
+        uiTable.add(quitButton);
+
     }
 
     @Override
@@ -43,5 +67,45 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void resize(int width, int height) {
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
