@@ -307,6 +307,10 @@ public class BaseActor extends Actor {
         }
     }
 
+    public static Rectangle getWorldBounds() {
+        return worldBounds;
+    }
+
     public boolean isWithinDistance(float distance, BaseActor other) {
         Polygon poly1 = this.getBoundaryPolygon();
         float scaleX = (this.getWidth() + 2 * distance) / this.getWidth();

@@ -31,7 +31,7 @@ public class MenuScreen extends BaseScreen {
                 {
                     InputEvent ie = (InputEvent) e;
                     if (ie.getType().equals(InputEvent.Type.touchDown)) {
-                        StarfishGame.setActiveScreen(new LevelScreen());
+                        StarfishGame.setActiveScreen(new StoryScreen());
                     }
                     return false;
                 }
