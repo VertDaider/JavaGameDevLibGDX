@@ -5,13 +5,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Player extends BaseActor {
+    private Turret turret;
+
     public Player(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("player.png");
         setAcceleration(400);
         setMaxSpeed(100);
         setDeceleration(400);
-        setBoundaryPolygon(8);
+        setBoundaryPolygon(4);
+
     }
 
     public void act(float dt) {
