@@ -35,7 +35,7 @@ public abstract class BaseGame extends Game {
 
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("OpenSans.ttf"));
         FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
-        fontParameter.size = 48;
+        fontParameter.size = 24;
         fontParameter.color = Color.WHITE;
         fontParameter.borderWidth = 2;
         fontParameter.borderColor = Color.BLACK;

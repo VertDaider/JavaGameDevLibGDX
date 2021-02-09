@@ -1,8 +1,10 @@
 package ru.serioussem.scene;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
+
 import ru.serioussem.actors.BaseActor;
 
 public class SceneActions extends Actions {
@@ -15,7 +17,7 @@ public class SceneActions extends Actions {
     }
 
     public static Action moveToScreenLeft(float duration) {
-        return Actions.moveToAligned(0,0, Align.bottomLeft, duration);
+        return Actions.moveToAligned(0, 0, Align.bottomLeft, duration);
     }
 
     public static Action moveToScreenRight(float duration) {
@@ -27,10 +29,18 @@ public class SceneActions extends Actions {
     }
 
     public static Action moveToOutsideLeft(float duration) {
-        return Actions.moveToAligned(0,0,Align.bottomRight, duration);
+        return Actions.moveToAligned(0, 0, Align.bottomRight, duration);
     }
 
     public static Action moveToOutsideRight(float duration) {
         return Actions.moveToAligned(BaseActor.getWorldBounds().width, 0, Align.bottomLeft, duration);
+    }
+
+    public static Action setAnimation(Animation a) {
+        return new SetAnimationAction(a);
+    }
+
+    public static Action typewriter(String s) {
+        return new TypewriterAction(s);
     }
 }
