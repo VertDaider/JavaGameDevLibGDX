@@ -1,6 +1,8 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,11 +28,19 @@ public class LevelScreen2 extends BaseScreen {
     private final String classRock = "ru.serioussem.actors.Rock";
     private final String classStarfish = "ru.serioussem.actors.Starfish";
     private final String classShark = "ru.serioussem.actors.Shark";
+    private final String classSign = "ru.serioussem.actors.Sign";
 
     private Label starfishLabel;
+    private DialogBox dialogBox;
     private Turtle turtle;
     private boolean win;
     private boolean gameOver;
+
+    private float audioVolume;
+    private float audioVolumeBegin;
+    private Sound waterDrop;
+    private Music instrumental;
+    private Music oceanSurf;
 
     @Override
     public void initialize() {
@@ -52,26 +62,84 @@ public class LevelScreen2 extends BaseScreen {
         Button restartButton = new Button(buttonStyle);
         restartButton.setColor(Color.CYAN);
 
-        restartButton.addListener(
+        restartButton.addListener((Event e) -> {
+            if (!isTouchDownEvent(e)) {
+                return false;
+            }
+            instrumental.dispose();
+            oceanSurf.dispose();
+            StarfishGame.setActiveScreen(new LevelScreen());
+            return true;
+        });
+
+        Button.ButtonStyle buttonStyle2 = new Button.ButtonStyle();
+        Texture buttonTex2 = new Texture(Gdx.files.internal("audio.png"));
+        TextureRegion buttonRegion2 = new TextureRegion(buttonTex2);
+        buttonStyle2.up = new TextureRegionDrawable(buttonRegion2);
+
+        Button muteButton = new Button(buttonStyle2);
+        muteButton.setColor(Color.CYAN);
+
+        muteButton.addListener(
                 (Event e) ->
                 {
-                    InputEvent ie = (InputEvent) e;
-                    if (ie.getType().equals(InputEvent.Type.touchDown))
-                        StarfishGame.setActiveScreen(new LevelScreen());
-                    return false;
+                    if (!isTouchDownEvent(e)) {
+                        return false;
+                    }
+                    if (audioVolume != 0) {
+                        audioVolume = 0;
+                    } else {
+                        audioVolume = audioVolumeBegin;
+                    }
+                    instrumental.setVolume(audioVolume);
+                    oceanSurf.setVolume(audioVolume);
+                    return true;
                 }
         );
 
         createObjectsRandom();
 
+        waterDrop = Gdx.audio.newSound(Gdx.files.internal("Water_Drop.ogg"));
+        instrumental = Gdx.audio.newMusic(Gdx.files.internal("Master_of_the_Feast.ogg"));
+        oceanSurf = Gdx.audio.newMusic(Gdx.files.internal("Ocean_Waves.ogg"));
+
+        audioVolume = 0.2f;
+        audioVolumeBegin = 0.2f;
+        instrumental.setLooping(true);
+        instrumental.setVolume(audioVolume);
+        instrumental.play();
+        oceanSurf.setLooping(true);
+        oceanSurf.setVolume(audioVolume);
+        oceanSurf.play();
+
+        Sign sign1 = new Sign(100, 500, mainStage);
+        sign1.setText("West Starfish Bay");
+        Sign sign2 = new Sign(2000, 300, mainStage);
+        sign2.setText("East Starfish Bay");
+        Sign sign3 = new Sign(1200, 1650, mainStage);
+        sign3.setText("North Starfish Bay");
+
+        dialogBox = new DialogBox(0, 0, uiStage);
+        dialogBox.setBackgroundColor(Color.TAN);
+        dialogBox.setFontColor(Color.BROWN);
+        dialogBox.setDialogSize(1100, 100);
+        dialogBox.setFontScale(0.8f);
+        dialogBox.alignCenter();
+        dialogBox.setVisible(false);
+
         uiTable.pad(10);
         uiTable.add(starfishLabel).top();
         uiTable.add().expandX().expandY();
         uiTable.add(restartButton).top();
+        uiTable.add(muteButton).top();
+        uiTable.row();
+        uiTable.add(dialogBox).colspan(4);
     }
 
     @Override
     public void update(float dt) {
+        checkSign();
+
         for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
             turtle.preventOverlap(rockActor);
         }
@@ -89,6 +157,7 @@ public class LevelScreen2 extends BaseScreen {
             Starfish starfish = (Starfish) starfishActor;
             if (turtle.overlaps(starfish) && !starfish.collected) {
                 starfish.collected = true;
+                waterDrop.play(audioVolume);
                 starfish.clearActions();
                 starfish.addAction(Actions.fadeOut(1));
                 starfish.addAction(Actions.after(Actions.removeActor()));
@@ -119,6 +188,27 @@ public class LevelScreen2 extends BaseScreen {
         }
 
         starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
+    }
+
+
+    private void checkSign() {
+        for (BaseActor signActor : BaseActor.getList(mainStage, classSign)) {
+            Sign sign = (Sign) signActor;
+            turtle.preventOverlap(sign);
+            boolean nearby = turtle.isWithinDistance(4, sign);
+
+            if (nearby && !sign.isViewing()) {
+                dialogBox.setText(sign.getText());
+                dialogBox.setVisible(true);
+                sign.setViewing(true);
+            }
+
+            if (sign.isViewing() && !nearby) {
+                dialogBox.setText(" ");
+                dialogBox.setVisible(false);
+                sign.setViewing(false);
+            }
+        }
     }
 
     private void createObjectsRandom() {

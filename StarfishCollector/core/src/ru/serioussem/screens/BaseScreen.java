@@ -6,6 +6,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
@@ -38,6 +41,10 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
         mainStage.draw();
         uiStage.draw();
+    }
+
+    public boolean isTouchDownEvent(Event e) {
+        return (e instanceof InputEvent) && ((InputEvent) e).getType().equals(Type.touchDown);
     }
 
     @Override
