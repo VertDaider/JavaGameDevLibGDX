@@ -1,3 +1,5 @@
+package ru.serioussem.actors;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -8,7 +10,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import com.badlogic.gdx.math.Vector2;
@@ -104,9 +105,9 @@ public class BaseActor extends Group
     }
 
     /** 
-     *  Repositions this BaseActor so its center is aligned
-     *  with center of other BaseActor. Useful when one BaseActor spawns another.
-     *  @param other BaseActor to align this BaseActor with
+     *  Repositions this ru.serioussem.actors.BaseActor so its center is aligned
+     *  with center of other ru.serioussem.actors.BaseActor. Useful when one ru.serioussem.actors.BaseActor spawns another.
+     *  @param other ru.serioussem.actors.BaseActor to align this ru.serioussem.actors.BaseActor with
      */
     public void centerAtActor(BaseActor other)
     {
@@ -432,8 +433,8 @@ public class BaseActor extends Group
     }
 
     /**
-     *  Returns bounding polygon for this BaseActor, adjusted by Actor's current position and rotation.
-     *  @return bounding polygon for this BaseActor
+     *  Returns bounding polygon for this ru.serioussem.actors.BaseActor, adjusted by Actor's current position and rotation.
+     *  @return bounding polygon for this ru.serioussem.actors.BaseActor
      */
     public Polygon getBoundaryPolygon()
     {
@@ -445,9 +446,9 @@ public class BaseActor extends Group
     }
 
     /**
-     *  Determine if this BaseActor overlaps other BaseActor (according to collision polygons).
-     *  @param other BaseActor to check for overlap
-     *  @return true if collision polygons of this and other BaseActor overlap
+     *  Determine if this ru.serioussem.actors.BaseActor overlaps other ru.serioussem.actors.BaseActor (according to collision polygons).
+     *  @param other ru.serioussem.actors.BaseActor to check for overlap
+     *  @return true if collision polygons of this and other ru.serioussem.actors.BaseActor overlap
      *  @see #setBoundaryRectangle
      *  @see #setBoundaryPolygon
      */
@@ -465,9 +466,9 @@ public class BaseActor extends Group
 
     /**
      *  Implement a "solid"-like behavior:
-     *  when there is overlap, move this BaseActor away from other BaseActor
+     *  when there is overlap, move this ru.serioussem.actors.BaseActor away from other ru.serioussem.actors.BaseActor
      *  along minimum translation vector until there is no overlap.
-     *  @param other BaseActor to check for overlap
+     *  @param other ru.serioussem.actors.BaseActor to check for overlap
      *  @return direction vector by which actor was translated, null if no overlap
      */
     public Vector2 preventOverlap(BaseActor other)
@@ -490,10 +491,10 @@ public class BaseActor extends Group
     }
 
     /**
-     *  Determine if this BaseActor is near other BaseActor (according to collision polygons).
+     *  Determine if this ru.serioussem.actors.BaseActor is near other ru.serioussem.actors.BaseActor (according to collision polygons).
      *  @param distance amount (pixels) by which to enlarge collision polygon width and height 
-     *  @param other BaseActor to check if nearby
-     *  @return true if collision polygons of this (enlarged) and other BaseActor overlap
+     *  @param other ru.serioussem.actors.BaseActor to check if nearby
+     *  @return true if collision polygons of this (enlarged) and other ru.serioussem.actors.BaseActor overlap
      *  @see #setBoundaryRectangle
      *  @see #setBoundaryPolygon
      */
@@ -584,8 +585,8 @@ public class BaseActor extends Group
      *      or whose class extends the class with the given name.
      *  If no instances exist, returns an empty list.
      *  Useful when coding interactions between different types of game objects in update method.
-     *  @param stage Stage containing BaseActor instances
-     *  @param className name of a class that extends the BaseActor class
+     *  @param stage Stage containing ru.serioussem.actors.BaseActor instances
+     *  @param className name of a class that extends the ru.serioussem.actors.BaseActor class
      *  @return list of instances of the object in stage which extend with the given class name 
      */
     public static ArrayList<BaseActor> getList(Stage stage, String className)
@@ -608,8 +609,8 @@ public class BaseActor extends Group
     }
 
     /**
-     *  Returns number of instances of a given class (that extends BaseActor).
-     *  @param className name of a class that extends the BaseActor class
+     *  Returns number of instances of a given class (that extends ru.serioussem.actors.BaseActor).
+     *  @param className name of a class that extends the ru.serioussem.actors.BaseActor class
      *  @return number of instances of the class
      */
     public static int count(Stage stage, String className)

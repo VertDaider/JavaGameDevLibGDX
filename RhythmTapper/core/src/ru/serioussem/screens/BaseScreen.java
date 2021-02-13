@@ -1,4 +1,4 @@
-package ru.serioussem;
+package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

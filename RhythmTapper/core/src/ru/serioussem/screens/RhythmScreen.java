@@ -1,6 +1,6 @@
-package ru.serioussem;
+package ru.serioussem.screens;
 
-public class RhythmScreen extends BaseScreen{
+public class RhythmScreen extends BaseScreen {
     @Override
     public void initialize() {
 

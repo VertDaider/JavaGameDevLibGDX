@@ -1,5 +1,7 @@
 package ru.serioussem;
 
+import ru.serioussem.screens.RhythmScreen;
+
 public class RhythmTapper extends BaseGame {
 
 	@Override
