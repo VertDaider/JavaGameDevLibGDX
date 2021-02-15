@@ -1,6 +1,7 @@
 package ru.serioussem;
 
 import com.badlogic.gdx.files.FileHandle;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.FileChooser;
@@ -30,13 +31,17 @@ public class FileUtils {
             FileChooser fileChooser = new FileChooser();
             File file;
 
-            if (dialogType == openDialog)
-            {  file = fileChooser.showOpenDialog(null);}
-            else // dialogType == saveDialog
-            {  file = fileChooser.showSaveDialog(null);}
-            if (file != null) {fileHandle = new FileHandle(file);}
-            else
-            { fileHandle = null;}
+            if (dialogType == openDialog) {
+                file = fileChooser.showOpenDialog(null);
+            } else // dialogType == saveDialog
+            {
+                file = fileChooser.showSaveDialog(null);
+            }
+            if (file != null) {
+                fileHandle = new FileHandle(file);
+            } else {
+                fileHandle = null;
+            }
             finished = true;
         });
 
