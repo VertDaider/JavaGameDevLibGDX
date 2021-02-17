@@ -14,7 +14,7 @@ public class FileUtils {
     private static int openDialog = 1;
     private static int saveDialog = 2;
 
-    static FileHandle showOpenDialog() {
+    public static FileHandle showOpenDialog() {
         return showDialog(openDialog);
     }
 

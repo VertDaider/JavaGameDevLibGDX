@@ -2,7 +2,7 @@ package ru.serioussem;
 
 import ru.serioussem.screens.RhythmScreen;
 
-public class RhythmTapper extends BaseGame {
+public class RhythmGame extends BaseGame {
 
 	@Override
 	public void create () {
