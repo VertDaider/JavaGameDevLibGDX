@@ -84,6 +84,7 @@ public class SongData {
     public void readFromFile(FileHandle file) {
         String rawData = file.readString();
         String[] dataArray = rawData.split("\n");
+        setSongName(dataArray[0]);
         setSongDuration(Float.parseFloat(dataArray[1]));
         keyTimeList.clear();
         for (int i = 2; i < dataArray.length; i++) {
