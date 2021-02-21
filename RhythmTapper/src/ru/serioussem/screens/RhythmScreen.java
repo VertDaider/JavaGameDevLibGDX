@@ -5,12 +5,15 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import ru.serioussem.BaseGame;
 import ru.serioussem.SongData;
 import ru.serioussem.actors.BaseActor;
 import ru.serioussem.actors.FallingBox;
+import ru.serioussem.actors.Message;
 import ru.serioussem.actors.TargetBox;
 
 import java.util.ArrayList;
@@ -27,6 +30,12 @@ public class RhythmScreen extends BaseScreen {
     private float advanceTimer;
     private float spawnHeight;
     private float noteSpeed;
+    private Message message;
+    private Label scoreLabel;
+    private int score;
+    private int maxScore;
+    private Label timeLabel;
+    private float songDuration;
 
     @Override
     public void initialize() {
@@ -78,11 +87,29 @@ public class RhythmScreen extends BaseScreen {
                     FileHandle songFileHandle = Gdx.files.internal("assets/" + songData.getSongName());
                     gameMusic = Gdx.audio.newMusic(songFileHandle);
                     startButton.setVisible(false);
+
+                    songDuration = songData.getSongDuration();
+                    score = 0;
+                    maxScore = 100 * songData.ketTimeCount();
+                    scoreLabel.setText("Score: " + score + "\n" + "Max: " + maxScore);
+                    timeLabel.setText("Time: " + 0 + "\n" + "End :" + (int) songDuration);
                     return true;
                 }
         );
 
-        uiTable.add(startButton);
+        scoreLabel = new Label("Score: 0" + "\n" + "Max: 0", BaseGame.labelStyle);
+        scoreLabel.setAlignment(Align.right);
+        timeLabel = new Label("Time: 0" + "\n" + "End: 0", BaseGame.labelStyle);
+        timeLabel.setAlignment(Align.right);
+        message = new Message(0, 0, uiStage);
+        message.setOpacity(0);
+
+        uiTable.pad(10);
+        uiTable.add(startButton).width(200).left();
+        uiTable.add(timeLabel).width(150);
+        uiTable.add(scoreLabel).width(200).right();
+        uiTable.row();
+        uiTable.add(message).colspan(3).expandX().expandY();
     }
 
     @Override
@@ -106,6 +133,10 @@ public class RhythmScreen extends BaseScreen {
             fallingLists.get(i).add(fb);
 
             songData.advanceIndex();
+        }
+
+        if (gameMusic.isPlaying()) {
+            timeLabel.setText("Time: " + (int) gameMusic.getPosition() + "\n" + "End: " + (int) songDuration);
         }
 
     }

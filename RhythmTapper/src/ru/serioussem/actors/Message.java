@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-class Message extends BaseActor {
+public class Message extends BaseActor {
     public Animation perfect;
     public Animation great;
     public Animation good;
