@@ -1,6 +1,7 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -139,9 +140,67 @@ public class RhythmScreen extends BaseScreen {
             timeLabel.setText("Time: " + (int) gameMusic.getPosition() + "\n" + "End: " + (int) songDuration);
         }
 
+        for (int i = 0; i < 4; i++) {
+            String key = keyList.get(i);
+            ArrayList<FallingBox> fallingList = fallingLists.get(i);
+            if (fallingList.size() > 0) {
+                FallingBox fb = fallingList.get(0);
+                TargetBox tb = targetList.get(i);
+                if (fb.getY() < tb.getY() && !fb.overlaps(tb)) {
+                    message.setAnimation(message.miss);
+                    message.pulseFade();
+                    fallingList.remove(fb);
+                    fb.remove();
+                }
+            }
+        }
     }
 
+    /**
+     * 0–8 pixels: “Perfect,” worth 100 points;
+     * 8–16 pixels: “Great,” worth 80 points;
+     * 16–24 pixels: “Good,” worth 50 points;
+     * 24–32 pixels: “Almost,” worth 20 points;
+     * greater than 32 pixels: considered a “Miss” and worth no points
+     */
     public boolean keyDown(int keycode) {
+        if (songData == null) return false;
+
+        String keyString = Input.Keys.toString(keycode);
+        if (keyList.contains(keyString)) {
+            int i = keyList.indexOf(keyString);
+            TargetBox tb = targetList.get(i);
+            ArrayList<FallingBox> fallingList = fallingLists.get(i);
+
+            if (fallingList.size() == 0) {
+                message.setAnimation(message.miss);
+                message.pulseFade();
+            } else {
+                FallingBox fb = fallingList.get(0);
+                float distance = Math.abs(fb.getY() - tb.getY());
+
+                if (distance < 8) {
+                    message.setAnimation(message.perfect);
+                    score += 100;
+                } else if (distance < 16) {
+                    message.setAnimation(message.great);
+                    score += 80;
+                } else if (distance < 24) {
+                    message.setAnimation(message.good);
+                    score += 50;
+                } else if (distance < 32) {
+                    message.setAnimation(message.almost);
+                    score += 20;
+                } else {
+                    message.setAnimation(message.miss);
+                }
+                message.pulseFade();
+                scoreLabel.setText("Score: " + score + "\n" + "Max: " + maxScore);
+
+                fallingList.remove(fb);
+                fb.remove();
+            }
+        }
         return false;
     }
 }
