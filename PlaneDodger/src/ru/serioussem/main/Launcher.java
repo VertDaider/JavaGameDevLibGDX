@@ -1,16 +1,16 @@
-package ru.serioussem.desktop;
+package ru.serioussem.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.SpaceGame;
+import ru.serioussem.PlaneDodgerGame;
 
-public class DesktopLauncher {
-    public static void main(String[] arg) {
+public class Launcher {
+    public static void main(String[] args) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 1200;
         config.height = 900;
         config.samples = 3;
-        config.title = "Space Rocks";
-        new LwjglApplication(new SpaceGame(), config);
+        config.title = "Plane Dodger";
+        new LwjglApplication(new PlaneDodgerGame(), config);
     }
 }
