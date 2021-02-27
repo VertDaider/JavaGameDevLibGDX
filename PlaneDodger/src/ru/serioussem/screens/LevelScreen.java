@@ -2,6 +2,8 @@ package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import ru.serioussem.BaseGame;
@@ -20,6 +22,10 @@ public class LevelScreen extends BaseScreen {
     float enemySpeed;
     boolean gameOver;
     BaseActor gameOverMessage;
+    Music backgroundMusic;
+    Sound sparkleSound;
+    Sound explosionSound;
+
 
     public void initialize() {
         new Sky(0, 0, mainStage);
@@ -29,6 +35,13 @@ public class LevelScreen extends BaseScreen {
 
         plane = new Plane(100, 500, mainStage);
         BaseActor.setWorldBounds(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/Prelude-and-Action.mp3"));
+        sparkleSound = Gdx.audio.newSound(Gdx.files.internal("assets/sparkle.mp3"));
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("assets/explosion.wav"));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(1.00f);
+        backgroundMusic.play();
 
         starTimer = 0;
 
@@ -72,6 +85,9 @@ public class LevelScreen extends BaseScreen {
                 star.remove();
                 score++;
                 scoreLabel.setText(Integer.toString(score));
+                Sparkle sp = new Sparkle(0, 0, mainStage);
+                sp.centerAtActor(star);
+                sparkleSound.play();
             }
         }
     }
@@ -92,6 +108,12 @@ public class LevelScreen extends BaseScreen {
 
         for (BaseActor enemy : BaseActor.getList(mainStage, classEnemy)) {
             if (plane.overlaps(enemy)) {
+                Explosion ex = new Explosion(0, 0, mainStage);
+                ex.centerAtActor(plane);
+                ex.setScale(3);
+                explosionSound.play();
+                backgroundMusic.stop();
+
                 plane.remove();
                 gameOver = true;
                 gameOverMessage.setVisible(true);
