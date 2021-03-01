@@ -1,11 +1,15 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import ru.serioussem.actors.*;
 
 public class LevelScreen extends BaseScreen {
     Paddle paddle;
     Ball ball;
+    private static final String classWall = "ru.serioussem.actors.Wall";
+    private static final String classBrick = "ru.serioussem.actors.Brick";
 
     public void initialize() {
         BaseActor background = new BaseActor(0, 0, mainStage);
@@ -32,6 +36,32 @@ public class LevelScreen extends BaseScreen {
         if (ball.isPaused()) {
             ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
             ball.setY(paddle.getY() + paddle.getHeight() / 2 + ball.getHeight() / 2);
+        }
+
+        //bouncing off the walls
+        for (BaseActor wall : BaseActor.getList(mainStage, classWall)) {
+            if (ball.overlaps(wall)) {
+                ball.bounceOff(wall);
+            }
+        }
+
+        for (BaseActor brick : BaseActor.getList(mainStage, classBrick)) {
+            Brick br = (Brick) brick;
+            if (ball.overlaps(brick)) {
+                ball.bounceOff(brick);
+                br.setHp(br.getHp() - 1);
+                br.setColor(Color.CORAL);
+                if (br.getHp() == 0) {
+                    brick.remove();
+                }
+            }
+        }
+
+        if (ball.overlaps(paddle)) {
+            float ballCenterX = ball.getX() + ball.getWidth() / 2;
+            float paddlePercentHit = (ballCenterX - paddle.getX()) / paddle.getWidth();
+            float bounceAngle = MathUtils.lerp(150, 30, paddlePercentHit);
+            ball.setMotionAngle(bounceAngle);
         }
     }
 
