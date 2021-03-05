@@ -40,7 +40,7 @@ public class LevelScreen extends BaseScreen {
         sparkleSound = Gdx.audio.newSound(Gdx.files.internal("assets/sparkle.mp3"));
         explosionSound = Gdx.audio.newSound(Gdx.files.internal("assets/explosion.wav"));
         backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(1.00f);
+        backgroundMusic.setVolume(0.30f);
         backgroundMusic.play();
 
         starTimer = 0;
