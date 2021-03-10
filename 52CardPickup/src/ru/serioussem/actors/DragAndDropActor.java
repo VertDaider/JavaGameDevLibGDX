@@ -1,5 +1,6 @@
 package ru.serioussem.actors;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,6 +15,9 @@ public class DragAndDropActor extends BaseActor {
 
     private float grabOffsetX;
     private float grabOffsetY;
+
+    private float startPositionX;
+    private float startPositionY;
 
     public DragAndDropActor(float x, float y, Stage s) {
         super(x, y, s);
@@ -30,6 +34,8 @@ public class DragAndDropActor extends BaseActor {
                         }
                         self.grabOffsetX = offsetX;
                         self.grabOffsetY = offsetY;
+                        self.startPositionX = self.getX();
+                        self.startPositionY = self.getY();
                         self.toFront();
                         self.addAction(Actions.scaleTo(1.1f, 1.1f, 0.25f));
                         self.onDragStart();
@@ -95,6 +101,22 @@ public class DragAndDropActor extends BaseActor {
     }
 
     public void onDrop() {
+    }
+
+    /**
+     * Slide this actor to the center of another actor.
+     */
+    public void moveToActor(BaseActor other) {
+        float x = other.getX() + (other.getWidth() - this.getWidth()) / 2;
+        float y = other.getY() + (other.getHeight() - this.getHeight()) / 2;
+        addAction(Actions.moveTo(x, y, 0.50f, Interpolation.pow3));
+    }
+
+    /**
+     * Slide this actor back to its original position before it was dragged.
+     */
+    public void moveToStart() {
+        addAction(Actions.moveTo(startPositionX, startPositionY, 0.50f, Interpolation.pow3));
     }
 
     @Override
