@@ -63,9 +63,15 @@ public class PuzzlePiece extends DragAndDropActor {
     public void onDrop() {
         if (hasDropTarget()) {
             PuzzleArea pa = (PuzzleArea) getDropTarget();
-//            moveToActor(pa); wtf???
+            moveToActor(pa);
             setPuzzleArea(pa);
             pa.setTargetable(false);
         }
+    }
+
+    @Override
+    public void act(float dt) {
+        super.act(dt);
+        boundToWorld();
     }
 }

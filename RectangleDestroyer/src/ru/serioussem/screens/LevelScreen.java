@@ -66,7 +66,7 @@ public class LevelScreen extends BaseScreen {
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/Rollin-at-5.mp3"));
         backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(0.3f);
+        backgroundMusic.setVolume(0.4f);
         backgroundMusic.play();
     }
 
