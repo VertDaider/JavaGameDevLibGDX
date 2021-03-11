@@ -23,7 +23,7 @@ public class LevelScreen extends BaseScreen {
         int numberRows = 5;
         int numberCols = 5;
 
-        Texture texture = new Texture(Gdx.files.internal("assets/sun600.jpg"), true);
+        Texture texture = new Texture(Gdx.files.internal("assets/dog.jpg"), true);
         int imageWidth = texture.getWidth();
         int imageHeight = texture.getHeight();
         int pieceWidth = imageWidth / numberCols;
@@ -70,7 +70,7 @@ public class LevelScreen extends BaseScreen {
 
             if (!pp.isCorrectlyPlaced()) {
                 solved = false;
-            } else {
+            } else {  // если на месте, то уже не оторвать
                 pp.setDraggable(false);
             }
 

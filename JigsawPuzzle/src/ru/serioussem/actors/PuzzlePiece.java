@@ -72,6 +72,6 @@ public class PuzzlePiece extends DragAndDropActor {
     @Override
     public void act(float dt) {
         super.act(dt);
-        boundToWorld();
+        boundToWorld(); // не залазим за границы
     }
 }
