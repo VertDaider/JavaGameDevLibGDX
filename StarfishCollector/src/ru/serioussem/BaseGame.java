@@ -33,7 +33,7 @@ public abstract class BaseGame extends Game {
         InputMultiplexer im = new InputMultiplexer();
         Gdx.input.setInputProcessor(im);
 
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("OpenSans.ttf"));
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("assets/OpenSans.ttf"));
         FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
         fontParameter.size = 48;
         fontParameter.color = Color.WHITE;
@@ -48,7 +48,7 @@ public abstract class BaseGame extends Game {
         labelStyle.font = customFont;
 
         textButtonStyle = new TextButtonStyle();
-        Texture buttonTex = new Texture(Gdx.files.internal("button.png"));
+        Texture buttonTex = new Texture(Gdx.files.internal("assets/button.png"));
         NinePatch buttonPatch = new NinePatch(buttonTex, 24,24,24,24);
         textButtonStyle.up = new NinePatchDrawable(buttonPatch);
         textButtonStyle.font = customFont;

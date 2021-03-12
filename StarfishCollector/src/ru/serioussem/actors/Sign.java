@@ -8,7 +8,7 @@ public class Sign extends BaseActor {
 
     public Sign(float x, float y, Stage s) {
         super(x, y, s);
-        loadTexture("sign.png");
+        loadTexture("assets/sign.png");
         text = " ";
         viewing = false;
         setBoundaryPolygon(8);

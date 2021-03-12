@@ -18,12 +18,12 @@ public class StoryScreen extends BaseScreen {
     @Override
     public void initialize() {
         BaseActor background = new BaseActor(0, 0, mainStage);
-        background.loadTexture("oceanside.png");
+        background.loadTexture("assets/oceanside.png");
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         BaseActor.setWorldBounds(background);
 
         BaseActor turtle = new BaseActor(0, 0, mainStage);
-        turtle.loadTexture("turtle-big.png");
+        turtle.loadTexture("assets/turtle-big.png");
         turtle.setPosition(-turtle.getWidth(), 0);
 
         DialogBox dialogBox = new DialogBox(0, 0, uiStage);
@@ -36,7 +36,7 @@ public class StoryScreen extends BaseScreen {
         uiTable.add(dialogBox).expandX().expandY().bottom();
 
         continueKey = new BaseActor(0, 0, uiStage);
-        continueKey.loadTexture("key-C.png");
+        continueKey.loadTexture("assets/key-C.png");
         continueKey.setSize(32, 32);
         continueKey.setVisible(false);
 

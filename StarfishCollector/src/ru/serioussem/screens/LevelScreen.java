@@ -1,6 +1,7 @@
 package ru.serioussem.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -10,31 +11,30 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
 import ru.serioussem.BaseGame;
 import ru.serioussem.StarfishGame;
 import ru.serioussem.actors.*;
 
 import java.util.ArrayList;
 
-public class LevelScreen2 extends BaseScreen {
-    private final int MAX_COUNT_OBJECTS = 50;
-    private final int WORLD_HEIGHT = 1800;
+public class LevelScreen extends BaseScreen {
+    private final int MAX_COUNT_OBJECTS = 40;
     private final int WORLD_WIDTH = 2400;
+    private final int WORLD_HEIGHT = 1800;
     private final String classRock = "ru.serioussem.actors.Rock";
     private final String classStarfish = "ru.serioussem.actors.Starfish";
-    private final String classShark = "ru.serioussem.actors.Shark";
     private final String classSign = "ru.serioussem.actors.Sign";
 
     private Label starfishLabel;
     private DialogBox dialogBox;
     private Turtle turtle;
     private boolean win;
-    private boolean gameOver;
 
     private float audioVolume;
     private float audioVolumeBegin;
@@ -44,21 +44,22 @@ public class LevelScreen2 extends BaseScreen {
 
     @Override
     public void initialize() {
+        win = false;
         BaseActor ocean = new BaseActor(0, 0, mainStage);
-        ocean.loadTexture("water-border.jpg");
+        ocean.loadTexture("assets/water-border.jpg");
         ocean.setSize(WORLD_WIDTH, WORLD_HEIGHT);
         BaseActor.setWorldBounds(ocean);
-        win = false;
-        gameOver = false;
+
         turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
 
         starfishLabel = new Label("Starfish left: ", BaseGame.labelStyle);
         starfishLabel.setColor(Color.CYAN);
 
-        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
-        Texture buttonTex = new Texture(Gdx.files.internal("undo.png"));
+        ButtonStyle buttonStyle = new ButtonStyle();
+        Texture buttonTex = new Texture(Gdx.files.internal("assets/undo.png"));
         TextureRegion buttonRegion = new TextureRegion(buttonTex);
         buttonStyle.up = new TextureRegionDrawable(buttonRegion);
+
         Button restartButton = new Button(buttonStyle);
         restartButton.setColor(Color.CYAN);
 
@@ -72,8 +73,8 @@ public class LevelScreen2 extends BaseScreen {
             return true;
         });
 
-        Button.ButtonStyle buttonStyle2 = new Button.ButtonStyle();
-        Texture buttonTex2 = new Texture(Gdx.files.internal("audio.png"));
+        ButtonStyle buttonStyle2 = new ButtonStyle();
+        Texture buttonTex2 = new Texture(Gdx.files.internal("assets/audio.png"));
         TextureRegion buttonRegion2 = new TextureRegion(buttonTex2);
         buttonStyle2.up = new TextureRegionDrawable(buttonRegion2);
 
@@ -99,9 +100,9 @@ public class LevelScreen2 extends BaseScreen {
 
         createObjectsRandom();
 
-        waterDrop = Gdx.audio.newSound(Gdx.files.internal("Water_Drop.ogg"));
-        instrumental = Gdx.audio.newMusic(Gdx.files.internal("Master_of_the_Feast.ogg"));
-        oceanSurf = Gdx.audio.newMusic(Gdx.files.internal("Ocean_Waves.ogg"));
+        waterDrop = Gdx.audio.newSound(Gdx.files.internal("assets/Water_Drop.ogg"));
+        instrumental = Gdx.audio.newMusic(Gdx.files.internal("assets/Master_of_the_Feast.ogg"));
+        oceanSurf = Gdx.audio.newMusic(Gdx.files.internal("assets/Ocean_Waves.ogg"));
 
         audioVolume = 0.2f;
         audioVolumeBegin = 0.2f;
@@ -116,7 +117,7 @@ public class LevelScreen2 extends BaseScreen {
         sign1.setText("West Starfish Bay");
         Sign sign2 = new Sign(2000, 300, mainStage);
         sign2.setText("East Starfish Bay");
-        Sign sign3 = new Sign(1200, 1650, mainStage);
+        Sign sign3 = new Sign(1200, 1600, mainStage);
         sign3.setText("North Starfish Bay");
 
         dialogBox = new DialogBox(0, 0, uiStage);
@@ -138,58 +139,12 @@ public class LevelScreen2 extends BaseScreen {
 
     @Override
     public void update(float dt) {
+        checkCollision();
+        checkWin();
         checkSign();
-
-        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
-            turtle.preventOverlap(rockActor);
-        }
-
-        for (BaseActor sharkActor : BaseActor.getList(mainStage, classShark)) {
-            Shark shark = (Shark) sharkActor;
-            if (turtle.overlaps(shark)) {
-                gameOver = true;
-                turtle.clearActions();
-                turtle.addAction(Actions.fadeOut(1));
-            }
-        }
-
-        for (BaseActor starfishActor : BaseActor.getList(mainStage, classStarfish)) {
-            Starfish starfish = (Starfish) starfishActor;
-            if (turtle.overlaps(starfish) && !starfish.collected) {
-                starfish.collected = true;
-                waterDrop.play(audioVolume);
-                starfish.clearActions();
-                starfish.addAction(Actions.fadeOut(1));
-                starfish.addAction(Actions.after(Actions.removeActor()));
-
-                Whirlpool whirl = new Whirlpool(0, 0, mainStage);
-                whirl.centerAtActor(starfish);
-                whirl.setOpacity(0.25f);
-            }
-        }
-
-        if (BaseActor.count(mainStage, classStarfish) == 0 && !win) {
-            win = true;
-            BaseActor youWinMessage = new BaseActor(0, 0, uiStage);
-            youWinMessage.loadTexture("you-win.png");
-            youWinMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-            youWinMessage.setOpacity(0);
-            youWinMessage.addAction(Actions.delay(1));
-            youWinMessage.addAction(Actions.after(Actions.fadeIn(1)));
-        }
-
-        if (gameOver) {
-            BaseActor gameOverMessage = new BaseActor(0, 0, uiStage);
-            gameOverMessage.loadTexture("game-over.png");
-            gameOverMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-            gameOverMessage.setOpacity(0);
-            gameOverMessage.addAction(Actions.delay(1));
-            gameOverMessage.addAction(Actions.after(Actions.fadeIn(1)));
-        }
 
         starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
     }
-
 
     private void checkSign() {
         for (BaseActor signActor : BaseActor.getList(mainStage, classSign)) {
@@ -207,6 +162,43 @@ public class LevelScreen2 extends BaseScreen {
                 dialogBox.setText(" ");
                 dialogBox.setVisible(false);
                 sign.setViewing(false);
+            }
+        }
+    }
+
+    private void checkWin() {
+        if (BaseActor.count(mainStage, classStarfish) == 0 && !win) {
+            BaseActor continueMessage = new BaseActor(0, 0, uiStage);
+            continueMessage.loadTexture("assets/message-continue.png");
+            continueMessage.centerAtPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+            continueMessage.setOpacity(0);
+            continueMessage.addAction(Actions.delay(1));
+            continueMessage.addAction(Actions.after(Actions.fadeIn(1)));
+            if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+                instrumental.dispose();
+                oceanSurf.dispose();
+                StarfishGame.setActiveScreen(new LevelScreen2());
+            }
+        }
+    }
+
+    private void checkCollision() {
+        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
+            turtle.preventOverlap(rockActor);
+        }
+
+        for (BaseActor starfishActor : BaseActor.getList(mainStage, classStarfish)) {
+            Starfish starfish = (Starfish) starfishActor;
+            if (turtle.overlaps(starfish) && !starfish.collected) {
+                starfish.collected = true;
+                waterDrop.play(audioVolume);
+                starfish.clearActions();
+                starfish.addAction(Actions.fadeOut(1));
+                starfish.addAction(Actions.after(Actions.removeActor()));
+
+                Whirlpool whirl = new Whirlpool(0, 0, mainStage);
+                whirl.centerAtActor(starfish);
+                whirl.setOpacity(0.25f);
             }
         }
     }
@@ -229,16 +221,38 @@ public class LevelScreen2 extends BaseScreen {
             }
         }
         // создаем объекты по листу
-        int countShark = 10;
-        int countStarAndRock = MAX_COUNT_OBJECTS - countShark;
         for (int i = 0; i < rectangles.size(); i++) {
-            if (i < countStarAndRock / 2) {
+            if (i < rectangles.size() / 2) {
                 new Rock(rectangles.get(i).x, rectangles.get(i).y, mainStage);
-            } else if (i > countStarAndRock / 2 && i <= countStarAndRock) {
-                new Starfish(rectangles.get(i).x, rectangles.get(i).y, mainStage);
             } else {
-                new Shark(rectangles.get(i).x, rectangles.get(i).y, mainStage);
+                new Starfish(rectangles.get(i).x, rectangles.get(i).y, mainStage);
             }
         }
+    }
+
+    private void createObjectsFromCoord() {
+        new Starfish(1020, 580, mainStage);
+        new Starfish(700, 420, mainStage);
+        new Starfish(600, 800, mainStage);
+        new Starfish(1000, 800, mainStage);
+        new Starfish(1100, 270, mainStage);
+        new Starfish(900, 240, mainStage);
+        new Starfish(100, 250, mainStage);
+        new Starfish(150, 530, mainStage);
+        new Starfish(330, 630, mainStage);
+        new Starfish(420, 510, mainStage);
+
+        new Rock(700, 650, mainStage);
+        new Rock(100, 300, mainStage);
+        new Rock(600, 450, mainStage);
+        new Rock(450, 250, mainStage);
+        new Rock(400, 550, mainStage);
+        new Rock(100, 650, mainStage);
+        new Rock(900, 150, mainStage);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
     }
 }

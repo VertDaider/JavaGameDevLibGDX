@@ -20,8 +20,8 @@ public class LevelScreen extends BaseScreen {
         background.loadTexture("assets/background.jpg");
         BaseActor.setWorldBounds(background);
 
-        int numberRows = 5;
-        int numberCols = 5;
+        int numberRows = 10;
+        int numberCols = 10;
 
         Texture texture = new Texture(Gdx.files.internal("assets/dog.jpg"), true);
         int imageWidth = texture.getWidth();

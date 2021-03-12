@@ -13,11 +13,11 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void initialize() {
         BaseActor ocean = new BaseActor(0, 0, mainStage);
-        ocean.loadTexture("water.jpg");
+        ocean.loadTexture("assets/water.jpg");
         ocean.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         BaseActor title = new BaseActor(0, 0, mainStage);
-        title.loadTexture("starfish-collector.png");
+        title.loadTexture("assets/starfish-collector.png");
 
         TextButton startLevelButton = new TextButton("Level 1", BaseGame.textButtonStyle);
         uiStage.addActor(startLevelButton);

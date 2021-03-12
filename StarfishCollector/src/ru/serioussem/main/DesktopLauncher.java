@@ -1,4 +1,4 @@
-package ru.serioussem.desktop;
+package ru.serioussem.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -10,7 +10,6 @@ public class DesktopLauncher {
 		config.width = 1200;
 		config.height = 900;
 		config.samples=3;
-//		config.fullscreen = true;
 		config.title = "Starfish Collector";
 		new LwjglApplication(new StarfishGame(), config);
 	}

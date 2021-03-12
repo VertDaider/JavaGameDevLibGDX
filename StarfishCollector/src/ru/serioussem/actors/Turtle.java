@@ -8,12 +8,12 @@ public class Turtle extends BaseActor {
     public Turtle(float x, float y, Stage s) {
         super(x, y, s);
         String[] filenames = {
-                "turtle-1.png",
-                "turtle-2.png",
-                "turtle-3.png",
-                "turtle-4.png",
-                "turtle-5.png",
-                "turtle-6.png"};
+                "assets/turtle-1.png",
+                "assets/turtle-2.png",
+                "assets/turtle-3.png",
+                "assets/turtle-4.png",
+                "assets/turtle-5.png",
+                "assets/turtle-6.png"};
         loadAnimationFromFiles(filenames, 0.1f, true);
         setAcceleration(400);
         setMaxSpeed(100);
