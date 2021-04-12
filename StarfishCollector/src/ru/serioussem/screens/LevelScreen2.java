@@ -190,7 +190,6 @@ public class LevelScreen2 extends BaseScreen {
         starfishLabel.setText("Starfish left: " + BaseActor.count(mainStage, classStarfish));
     }
 
-
     private void checkSign() {
         for (BaseActor signActor : BaseActor.getList(mainStage, classSign)) {
             Sign sign = (Sign) signActor;

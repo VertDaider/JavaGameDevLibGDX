@@ -3,7 +3,7 @@ package ru.serioussem.actors;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public class Laser extends BaseActor{
+public class Laser extends BaseActor {
     public Laser(float x, float y, Stage s) {
         super(x, y, s);
 
@@ -18,7 +18,7 @@ public class Laser extends BaseActor{
         setBoundaryPolygon(8);
     }
 
-    public void act (float dt) {
+    public void act(float dt) {
         super.act(dt);
         applyPhysics(dt);
 //        wrapAroundWorld();

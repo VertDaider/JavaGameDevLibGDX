@@ -24,23 +24,23 @@ public class Turtle extends BaseActor {
     public void act(float dt) {
         super.act(dt);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             accelerateAtAngle(180);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             accelerateAtAngle(0);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             accelerateAtAngle(90);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             accelerateAtAngle(270);
         }
 
         applyPhysics(dt);
 
         setAnimationPaused(!isMoving());
-        if(getSpeed() > 0) {
+        if (getSpeed() > 0) {
             setRotation(getMotionAngle());
         }
 

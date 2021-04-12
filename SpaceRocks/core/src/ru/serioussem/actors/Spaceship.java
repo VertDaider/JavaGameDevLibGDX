@@ -2,8 +2,8 @@ package ru.serioussem.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Spaceship extends BaseActor {
     private Thrusters thrusters;
@@ -60,11 +60,11 @@ public class Spaceship extends BaseActor {
         if (getStage() == null) {
             return;
         }
-        Warp warp1 = new Warp(0,0,this.getStage());
+        Warp warp1 = new Warp(0, 0, this.getStage());
         warp1.centerAtActor(this);
         setPosition(MathUtils.random(Gdx.graphics.getWidth() - getWidth()),
-                    MathUtils.random(Gdx.graphics.getHeight() - getHeight()));
-        Warp warp2 = new Warp(0,0,this.getStage());
+                MathUtils.random(Gdx.graphics.getHeight() - getHeight()));
+        Warp warp2 = new Warp(0, 0, this.getStage());
         warp2.centerAtActor(this);
     }
 
@@ -73,7 +73,7 @@ public class Spaceship extends BaseActor {
         if (getStage() == null) {
             return;
         }
-        Laser laser = new Laser(0,0, this.getStage());
+        Laser laser = new Laser(0, 0, this.getStage());
         laser.centerAtActor(this);
         laser.setRotation(this.getRotation());
         laser.setMotionAngle(this.getRotation());

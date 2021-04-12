@@ -2,8 +2,10 @@ package ru.serioussem;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
-import ru.serioussem.actors.*;
+import ru.serioussem.actors.BaseActor;
+import ru.serioussem.actors.Rock;
+import ru.serioussem.actors.Turtle;
+import ru.serioussem.actors.Whirlpool;
 
 public class RockCleaner extends GameBeta {
     private Turtle turtle;
