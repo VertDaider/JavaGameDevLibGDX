@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import ru.serioussem.BaseGame;
@@ -30,16 +32,7 @@ public class LevelScreen extends BaseScreen {
     Music backgroundMusic;
 
     public void initialize() {
-        BaseActor background = new BaseActor(0, 0, mainStage);
-        background.loadTexture("assets/space.png");
-        BaseActor.setWorldBounds(background);
-        paddle = new Paddle(520, 32, mainStage);
-
-        new Wall(0, 0, 20, 900, mainStage); // left wall
-        new Wall(1180, 0, 20, 900, mainStage); // right wall
-        new Wall(0, 850, 1200, 50, mainStage); //top wall
-
-        setUpGridBricks();
+        setUpTileMap();
 
         ball = new Ball(0, 0, mainStage);
         gameOver = false;
@@ -70,6 +63,59 @@ public class LevelScreen extends BaseScreen {
         backgroundMusic.play();
     }
 
+    private void setUpTileMap() {
+
+        TilemapActor tma = new TilemapActor("assets/map.tmx", mainStage);
+
+        for (MapObject obj : tma.getTileList("Wall")) {
+            MapProperties props = obj.getProperties();
+            new Wall((float) props.get("x"), (float) props.get("y"),
+                    (float) props.get("width"), (float) props.get("height"), mainStage);
+        }
+
+        for (MapObject obj : tma.getTileList("Brick")) {
+            MapProperties props = obj.getProperties();
+            Brick b = new Brick((float) props.get("x"), (float) props.get("y"), mainStage);
+            b.setSize((float) props.get("width"), (float) props.get("height"));
+            b.setBoundaryRectangle();
+
+            String colorName = (String) props.get("color");
+            switch (colorName) {
+                case "red":
+                    b.setColor(Color.RED);
+                    break;
+                case "orange":
+                    b.setColor(Color.ORANGE);
+                    break;
+                case "yellow":
+                    b.setColor(Color.YELLOW);
+                    break;
+                case "green":
+                    b.setColor(Color.GREEN);
+                    break;
+                case "blue":
+                    b.setColor(Color.BLUE);
+                    break;
+                case "purple":
+                    b.setColor(Color.PURPLE);
+                    break;
+                case "white":
+                    b.setColor(Color.WHITE);
+                    break;
+                case "gray":
+                    b.setColor(Color.GRAY);
+                    break;
+            }
+
+            int hp = (int) props.get("hp");
+            b.setHp(hp);
+        }
+
+        MapObject startPoint = tma.getRectangleList("start").get(0);
+        MapProperties props = startPoint.getProperties();
+        paddle = new Paddle((float) props.get("x"), (float) props.get("y"), mainStage);
+    }
+
     public void update(float dt) {
         // plugging mouse
         float mouseX = Gdx.input.getX();
@@ -96,11 +142,13 @@ public class LevelScreen extends BaseScreen {
             if (ball.overlaps(brick)) {
                 brickBumpSound.play();
                 ball.bounceOff(brick);
+                score += 1;
+                scoreLabel.setText("Score: " + score);
                 br.setHp(br.getHp() - 1);
-                br.setColor(Color.CORAL);
+                br.setColor(br.getHp());
                 if (br.getHp() == 0) {
                     brick.remove();
-                    score += 1;
+                    score += 10;
                     scoreLabel.setText("Score: " + score);
 
                     //items

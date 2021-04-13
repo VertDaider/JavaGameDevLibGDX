@@ -7,8 +7,8 @@ import ru.serioussem.RectangleGame;
 public class Launcher {
     public static void main(String[] args) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 1200;
-        config.height = 900;
+        config.width = 1280;
+        config.height = 960;
         config.samples = 3;
         config.title = "Rectangle Destroyer";
         new LwjglApplication(new RectangleGame(), config);

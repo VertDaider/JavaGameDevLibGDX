@@ -9,8 +9,6 @@ public class Brick extends BaseActor {
     public Brick(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("assets/brick-gray.png");
-        hp = 2;
-        setColor(Color.TAN);
     }
 
     public void setHp(int hp) {
@@ -19,5 +17,34 @@ public class Brick extends BaseActor {
 
     public int getHp() {
         return hp;
+    }
+
+    public void setColor(int hp) {
+        switch (hp) {
+            case 1:
+                this.setColor(Color.RED);
+                break;
+            case 2:
+                this.setColor(Color.ORANGE);
+                break;
+            case 3:
+                this.setColor(Color.YELLOW);
+                break;
+            case 4:
+                this.setColor(Color.GREEN);
+                break;
+            case 5:
+                this.setColor(Color.BLUE);
+                break;
+            case 6:
+                this.setColor(Color.PURPLE);
+                break;
+            case 7:
+                this.setColor(Color.WHITE);
+                break;
+            case 8:
+                this.setColor(Color.GRAY);
+                break;
+        }
     }
 }
