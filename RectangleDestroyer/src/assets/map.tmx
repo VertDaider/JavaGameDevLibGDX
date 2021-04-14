@@ -71,9 +71,9 @@
   <image source="large-space.png" width="1280" height="960"/>
  </imagelayer>
  <objectgroup id="3" name="Слой объектов 1">
-  <object id="1" gid="1" x="0" y="128" width="1280" height="128"/>
-  <object id="10" gid="1" x="0" y="960" width="64" height="832"/>
-  <object id="11" gid="1" x="1216" y="960" width="64" height="832"/>
+  <object id="1" gid="1" x="0" y="64" width="1280" height="64"/>
+  <object id="10" gid="1" x="0" y="960" width="32" height="896"/>
+  <object id="11" gid="1" x="1248" y="960" width="32" height="896"/>
   <object id="12" gid="9" x="672" y="480" width="64" height="32"/>
   <object id="13" gid="9" x="608" y="480" width="64" height="32"/>
   <object id="14" gid="9" x="608" y="512" width="64" height="32"/>

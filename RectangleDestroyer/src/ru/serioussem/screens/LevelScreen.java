@@ -148,11 +148,11 @@ public class LevelScreen extends BaseScreen {
                 br.setColor(br.getHp());
                 if (br.getHp() == 0) {
                     brick.remove();
-                    score += 10;
+                    score += 9;
                     scoreLabel.setText("Score: " + score);
 
                     //items
-                    float spawnProbability = 20;
+                    float spawnProbability = 15;
                     if (MathUtils.random(0, 100) < spawnProbability) {
                         Item i = new Item(0, 0, mainStage);
                         i.centerAtActor(brick);
