@@ -1,14 +1,18 @@
 package ru.serioussem.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import ru.serioussem.BaseGame;
 import ru.serioussem.actors.*;
+
+import java.util.ArrayList;
 
 public class LevelScreen extends BaseScreen {
     Koala jack;
@@ -19,6 +23,7 @@ public class LevelScreen extends BaseScreen {
     Table keyTable;
     Label timeLabel;
     Label messageLabel;
+    ArrayList<Color> keyList;
 
     public void initialize() {
 
@@ -34,6 +39,7 @@ public class LevelScreen extends BaseScreen {
         timeLabel.setColor(Color.LIGHT_GRAY);
         messageLabel = new Label("Message", BaseGame.labelStyle);
         messageLabel.setVisible(false);
+        keyList = new ArrayList<>();
 
         uiTable.pad(20);
         uiTable.add(coinLabel);
@@ -45,6 +51,10 @@ public class LevelScreen extends BaseScreen {
 
     private void initTiles() {
         TilemapActor tma = new TilemapActor("assets/map.tmx", mainStage);
+
+        MapObject startPoint = tma.getRectangleList("Start").get(0);
+        MapProperties startProps = startPoint.getProperties();
+        jack = new Koala((float) startProps.get("x"), (float) startProps.get("y"), mainStage);
 
         for (MapObject obj : tma.getRectangleList("Solid")) {
             MapProperties props = obj.getProperties();
@@ -67,9 +77,33 @@ public class LevelScreen extends BaseScreen {
             new Timer((float) props.get("x"), (float) props.get("y"), mainStage);
         }
 
-        MapObject startPoint = tma.getRectangleList("Start").get(0);
-        MapProperties startProps = startPoint.getProperties();
-        jack = new Koala((float) startProps.get("x"), (float) startProps.get("y"), mainStage);
+        for (MapObject obj : tma.getTileList("Platform")) {
+            MapProperties props = obj.getProperties();
+            new Platform((float) props.get("x"), (float) props.get("y"), mainStage);
+        }
+
+        for (MapObject obj : tma.getTileList("Key")) {
+            MapProperties props = obj.getProperties();
+            Key key = new Key((float) props.get("x"), (float) props.get("y"), mainStage);
+            String color = (String) props.get("color");
+            if (color.equals("red")) key.setColor(Color.RED);
+            else key.setColor(Color.WHITE);
+        }
+
+        for (MapObject obj : tma.getTileList("Lock")) {
+            MapProperties props = obj.getProperties();
+            Lock lock = new Lock((float) props.get("x"), (float) props.get("y"), mainStage);
+            String color = (String) props.get("color");
+            if (color.equals("red")) lock.setColor(Color.RED);
+            else lock.setColor(Color.WHITE);
+        }
+
+        for (MapObject obj : tma.getTileList("Springboard")) {
+            MapProperties props = obj.getProperties();
+            new Springboard((float) props.get("x"), (float) props.get("y"), mainStage);
+        }
+
+        jack.toFront();
     }
 
     public void update(float dt) {
@@ -115,23 +149,62 @@ public class LevelScreen extends BaseScreen {
         for (BaseActor actor : BaseActor.getList(mainStage, "ru.serioussem.actors.Solid")) {
             Solid solid = (Solid) actor;
 
+            if (solid instanceof Platform) {
+                if (jack.isJumping() && jack.overlaps(solid)) solid.setEnabled(false);
+                if (jack.isJumping() && !jack.overlaps(solid) && !jack.belowOverlaps(solid)) solid.setEnabled(true);
+            }
+
+            if (solid instanceof Lock && jack.overlaps(solid)) {
+                Color lockColor = solid.getColor();
+                if (keyList.contains(lockColor)) {
+                    solid.setEnabled(false);
+                    solid.addAction(Actions.fadeOut(0.5f));
+                    solid.addAction(Actions.after(Actions.removeActor()));
+                }
+            }
+
             if (jack.overlaps(solid) && solid.isEnabled()) {
                 Vector2 offset = jack.preventOverlap(solid);
 
                 if (offset != null) {
                     //collided in X direction
                     if (Math.abs(offset.x) > Math.abs(offset.y)) jack.velocityVec.x = 0;
-                    else //collided in Y direction
-                        jack.velocityVec.y = 0;
+                        //collided in Y direction
+                    else jack.velocityVec.y = 0;
                 }
+            }
+        }
+
+        for (BaseActor springboard : BaseActor.getList(mainStage, "ru.serioussem.actors.Springboard")) {
+            if (jack.belowOverlaps(springboard) && jack.isFalling()) {
+                jack.spring();
+            }
+        }
+
+        for (BaseActor key : BaseActor.getList(mainStage, "ru.serioussem.actors.Key")) {
+            if (jack.overlaps(key)) {
+                Color keyColor = key.getColor();
+                key.remove();
+                BaseActor keyIcon = new BaseActor(0, 0, uiStage);
+                keyIcon.loadTexture("assets/key-icon.png");
+                keyIcon.setColor(keyColor);
+                keyTable.add(keyIcon);
+                keyList.add(keyColor);
             }
         }
     }
 
     @Override
     public boolean keyDown(int keyCode) {
+        if (gameOver) return false;
+
         if (keyCode == Input.Keys.SPACE) {
-            if (jack.isOnSolid()) jack.jump();
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                for (BaseActor actor : BaseActor.getList(mainStage, "ru.serioussem.actors.Platform")) {
+                    Platform platform = (Platform) actor;
+                    if (jack.belowOverlaps(platform)) platform.setEnabled(false);
+                }
+            } else if (jack.isOnSolid()) jack.jump();
         }
         return false;
     }

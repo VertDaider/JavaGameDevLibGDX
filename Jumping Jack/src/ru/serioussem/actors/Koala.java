@@ -62,8 +62,20 @@ public class Koala extends BaseActor {
         return false;
     }
 
+    public boolean isFalling() {
+        return (velocityVec.y < 0);
+    }
+
+    public void spring() {
+        velocityVec.y = 1.5f * jumpSpeed;
+    }
+
     public void jump() {
         velocityVec.y = jumpSpeed;
+    }
+
+    public boolean isJumping() {
+        return (velocityVec.y > 0);
     }
 
     @Override
@@ -109,8 +121,7 @@ public class Koala extends BaseActor {
             belowSensor.setColor(Color.GREEN);
             if (velocityVec.x == 0) setAnimation(stand);
             else setAnimation(walk);
-        }
-        else {
+        } else {
             belowSensor.setColor(Color.RED);
             setAnimation(jump);
         }
