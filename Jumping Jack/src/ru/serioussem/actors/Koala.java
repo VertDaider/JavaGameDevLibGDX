@@ -47,7 +47,7 @@ public class Koala extends BaseActor {
         belowSensor.loadTexture("assets/white.png");
         belowSensor.setSize(this.getWidth() - 8, 8);
         belowSensor.setBoundaryRectangle();
-        belowSensor.setVisible(true);
+        belowSensor.setVisible(false); //sensor for test available jumping
     }
 
     public boolean belowOverlaps(BaseActor actor) {
