@@ -4,22 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import ru.serioussem.wander.game.WanderGame;
-import ru.serioussem.wander.game.actor.BaseActor;
-import ru.serioussem.wander.game.actor.Player;
+import ru.serioussem.wander.game.actor.*;
 
-public class GameScreen extends BaseScreen{
+import java.util.ArrayList;
+
+public class GameScreen extends BaseScreen {
     Player player1;
     Player player2;
+    Cell finishCell;
+    boolean win;
 
     @Override
     public void initialize() {
-        BaseActor map = new BaseActor(0, 0, mainStage);
-        map.loadTexture("core/assets/map.jpg");
-        map.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        win = false;
 
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
         Texture buttonTex = new Texture(Gdx.files.internal("core/assets/image/undo.png"));
@@ -35,12 +38,12 @@ public class GameScreen extends BaseScreen{
             }
 //            instrumental.dispose();
 //            oceanSurf.dispose();
-            WanderGame.setActiveScreen(new GameScreen());
+            WanderGame.setActiveScreen(new MenuScreen());
             return true;
         });
 
-        player1 = new Player(100, 100, uiStage, "red");
-        player2 = new Player(150,150, uiStage, "green");
+        TilemapActor tma = new TilemapActor("core/assets/image/map.tmx", mainStage);
+        createObjectsFromTileMap(tma);
 
         uiTable.pad(10);
 //        uiTable.add(starfishLabel).top();
@@ -50,6 +53,36 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void update(float dt) {
+        checkCollision();
+    }
 
+    private void createObjectsFromTileMap(TilemapActor tma) {
+
+        ArrayList<MapObject> calls = tma.getEllipseList("cell");
+        for (MapObject mapObject : calls) {
+            MapProperties mp = mapObject.getProperties();
+            int pos = (int) mp.get("position");
+            int move = (int) mp.get("move");
+            String type = (String) mp.get("type");
+            if (pos == 1) {
+                player1 = new Player((float) mp.get("x"), (float) mp.get("y"), mainStage, "red");
+                player2 = new Player((float) mp.get("x") + 20, (float) mp.get("y") - 20, mainStage, "green");
+            }
+            if (type.equals("red"))
+                // TODO: 24.10.2023  возможно убрать и проверять потом просто по типу
+                new RedCell((float) mp.get("x"), (float) mp.get("y"), pos, move, mainStage);
+            else
+                new Cell((float) mp.get("x"), (float) mp.get("y"), pos, type, mainStage);
+        }
+    }
+
+    private void checkCollision() {
+//        for (BaseActor cellActor: BaseActor.getList(mainStage, Cell.class.getName())) {
+//            Cell cell = (Cell) cellActor;
+//            if (player1.overlaps(cell)) {
+//                player1.centerAtActor(finishCell);
+//                System.out.println(cell.getPosition());
+//            }
+//        }
     }
 }
