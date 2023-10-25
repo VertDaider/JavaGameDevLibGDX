@@ -19,63 +19,63 @@
             <artifactId>gdx-backend-lwjgl</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-backend-lwjgl.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-backend-lwjgl.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-backend-lwjgl-natives.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-backend-lwjgl-natives.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-freetype-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-freetype-natives.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-freetype-natives.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-platform</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-sources.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-box2d-platform</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-sources.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-tools</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-sources.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-natives.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-natives.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-freetype-platform</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx-freetype.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx-freetype.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/gdx.jar</systemPath>
+            <systemPath>${basedir}/../libs/gdx.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
