@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="47" tileheight="50" infinite="0" nextlayerid="10" nextobjectid="59">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="47" tileheight="50" infinite="0" nextlayerid="10" nextobjectid="60">
  <imagelayer id="7" name="Слой изображений 1">
   <image source="../map.jpg" width="1400" height="1000"/>
  </imagelayer>
@@ -28,7 +28,7 @@
 </data>
  </layer>
  <objectgroup id="9" name="Слой объектов 1">
-  <object id="2" x="600.31" y="225.89" width="69.52" height="26.69">
+  <object id="2" x="600.31" y="225.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -37,7 +37,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="10" x="866.31" y="245.89" width="69.52" height="26.69">
+  <object id="10" x="866.31" y="245.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -46,7 +46,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="32" x="943.31" y="264.89" width="69.52" height="26.69">
+  <object id="32" x="943.31" y="264.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -55,7 +55,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="33" x="1107.81" y="270.89" width="69.52" height="26.69">
+  <object id="33" x="1107.81" y="270.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -64,7 +64,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="34" x="1180.31" y="255.39" width="69.52" height="26.69">
+  <object id="34" x="1180.31" y="255.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -82,7 +82,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="11" x="474.31" y="236.39" width="69.52" height="26.69">
+  <object id="11" x="474.31" y="236.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -91,7 +91,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="12" x="387.81" y="254.89" width="69.52" height="26.69">
+  <object id="12" x="387.81" y="254.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -100,7 +100,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="13" x="298.31" y="269.39" width="69.52" height="26.69">
+  <object id="13" x="298.31" y="269.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -109,7 +109,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="14" x="116.81" y="507.39" width="69.52" height="26.69">
+  <object id="14" x="116.81" y="507.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -118,7 +118,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="15" x="154.81" y="562.89" width="69.52" height="26.69">
+  <object id="15" x="154.81" y="562.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -127,7 +127,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="16" x="351.81" y="549.89" width="69.52" height="26.69">
+  <object id="16" x="351.81" y="549.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -136,7 +136,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="17" x="464.81" y="531.89" width="69.52" height="26.69">
+  <object id="17" x="464.81" y="531.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -145,7 +145,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="18" x="568.81" y="595.39" width="69.52" height="26.69">
+  <object id="18" x="568.81" y="595.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -154,7 +154,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="47" x="489.31" y="571.89" width="69.52" height="26.69">
+  <object id="47" x="489.31" y="571.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -163,7 +163,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="48" x="396.31" y="506.89" width="69.52" height="26.69">
+  <object id="48" x="396.31" y="506.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -172,7 +172,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="49" x="274.31" y="588.39" width="69.52" height="26.69">
+  <object id="49" x="274.31" y="588.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -181,7 +181,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="50" x="122.31" y="434.89" width="69.52" height="26.69">
+  <object id="50" x="122.31" y="434.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -190,7 +190,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="51" x="104.31" y="365.89" width="69.52" height="26.69">
+  <object id="51" x="104.31" y="365.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="3"/>
     <property name="name" value="cell"/>
@@ -199,7 +199,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="52" x="127.81" y="290.39" width="69.52" height="26.69">
+  <object id="52" x="127.81" y="290.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -208,7 +208,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="53" x="194.81" y="231.39" width="69.52" height="26.69">
+  <object id="53" x="194.81" y="231.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -217,7 +217,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="54" x="544.31" y="194.89" width="69.52" height="26.69">
+  <object id="54" x="544.31" y="194.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="-1"/>
     <property name="name" value="cell"/>
@@ -226,7 +226,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="55" x="636.31" y="259.89" width="69.52" height="26.69">
+  <object id="55" x="636.31" y="259.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -235,7 +235,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="56" x="710.31" y="243.39" width="69.52" height="26.69">
+  <object id="56" x="710.31" y="243.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -244,7 +244,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="57" x="782.81" y="265.89" width="69.52" height="26.69">
+  <object id="57" x="782.81" y="265.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -253,7 +253,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="58" x="1026.31" y="267.39" width="69.52" height="26.69">
+  <object id="58" x="1026.31" y="267.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -262,7 +262,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="19" x="653.31" y="584.89" width="69.52" height="26.69">
+  <object id="19" x="653.31" y="584.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -271,7 +271,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="20" x="933.81" y="605.39" width="69.52" height="26.69">
+  <object id="20" x="933.81" y="605.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -280,7 +280,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="45" x="819.81" y="583.39" width="69.52" height="26.69">
+  <object id="45" x="819.81" y="583.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="-2"/>
     <property name="name" value="cell"/>
@@ -289,7 +289,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="46" x="734.81" y="569.89" width="69.52" height="26.69">
+  <object id="46" x="734.81" y="569.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -298,7 +298,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="21" x="961.81" y="565.39" width="69.52" height="26.69">
+  <object id="21" x="961.81" y="565.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -307,7 +307,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="22" x="1044.81" y="571.89" width="69.52" height="26.69">
+  <object id="22" x="1044.81" y="571.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -316,7 +316,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="23" x="1251.81" y="791.89" width="69.52" height="26.69">
+  <object id="23" x="1251.81" y="791.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -325,7 +325,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="24" x="1259.31" y="895.89" width="69.52" height="26.69">
+  <object id="24" x="1259.31" y="895.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -334,7 +334,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="25" x="1137.81" y="955.39" width="69.52" height="26.69">
+  <object id="25" x="1137.81" y="955.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -343,7 +343,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="26" x="1047.31" y="954.89" width="69.52" height="26.69">
+  <object id="26" x="1047.31" y="954.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -352,7 +352,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="27" x="965.81" y="938.89" width="69.52" height="26.69">
+  <object id="27" x="965.81" y="938.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -361,7 +361,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="28" x="911.81" y="900.89" width="69.52" height="26.69">
+  <object id="28" x="911.81" y="900.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -370,7 +370,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="29" x="725.31" y="891.89" width="69.52" height="26.69">
+  <object id="29" x="725.31" y="891.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -379,7 +379,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="30" x="355.81" y="941.39" width="69.52" height="26.69">
+  <object id="30" x="355.81" y="941.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -388,7 +388,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="36" x="454.81" y="935.39" width="69.52" height="26.69">
+  <object id="36" x="454.81" y="935.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -397,7 +397,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="37" x="554.31" y="926.39" width="69.52" height="26.69">
+  <object id="37" x="554.31" y="926.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -406,7 +406,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="38" x="648.81" y="909.39" width="69.52" height="26.69">
+  <object id="38" x="648.81" y="909.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="2"/>
     <property name="name" value="cell"/>
@@ -415,7 +415,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="39" x="817.81" y="881.39" width="69.52" height="26.69">
+  <object id="39" x="817.81" y="881.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -424,7 +424,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="40" x="1223.81" y="938.89" width="69.52" height="26.69">
+  <object id="40" x="1223.81" y="938.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -433,7 +433,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="41" x="1262.81" y="848.39" width="69.52" height="26.69">
+  <object id="41" x="1262.81" y="848.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -442,7 +442,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="42" x="1239.31" y="736.39" width="69.52" height="26.69">
+  <object id="42" x="1239.31" y="736.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="1"/>
     <property name="name" value="cell"/>
@@ -451,7 +451,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="43" x="1225.81" y="681.89" width="69.52" height="26.69">
+  <object id="43" x="1225.81" y="681.89" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -460,7 +460,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="44" x="1127.31" y="600.39" width="69.52" height="26.69">
+  <object id="44" x="1127.31" y="600.39" width="70" height="27">
    <properties>
     <property name="move" type="int" value="0"/>
     <property name="name" value="cell"/>
@@ -477,6 +477,11 @@
     <property name="type" value="start"/>
    </properties>
    <ellipse/>
+  </object>
+  <object id="59" x="123.979" y="23.8422" width="163.319" height="157.358">
+   <properties>
+    <property name="name" value="web"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
