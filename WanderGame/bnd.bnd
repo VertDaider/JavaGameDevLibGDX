@@ -1,0 +1,7 @@
+Bundle-Name: wander-game
+Bundle-SymbolicName: ru.serioussem.wander.game
+Bundle-Version: 1.0
+Include-Resource: \
+    @baseGdx-1.0.0.jar
+
+-metatype: *

@@ -1,6 +1,7 @@
 package ru.serioussem.wander.game.actor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.DragAndDropActor;
 
 public class Player extends DragAndDropActor {
     private int targetPosition;
@@ -8,7 +9,8 @@ public class Player extends DragAndDropActor {
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
-        setBoundaryPolygon(8);
+        setSize(32, 54);
+        setBoundaryRectangle();
     }
 
     public int getTargetPosition() {
@@ -35,6 +37,10 @@ public class Player extends DragAndDropActor {
         return hasCell() && cell.getPosition() == targetPosition;
     }
 
+    public void clearCell() {
+        cell = null;
+    }
+
     @Override
     public void act(float dt) {
         super.act(dt);
@@ -43,37 +49,26 @@ public class Player extends DragAndDropActor {
 
     @Override
     public void onDragStart() {
-        System.out.println("drag start");
-        if (targetPosition != 0) {
-            Cell targetCell = getTargetCell();
-            if (targetCell != null) {
-                targetCell.setTargetable(true);
-                System.out.println(targetCell.getType().toString());
-            }
-//            setTargetPosition(0);
+
+        if (hasCell()) {
+            System.out.println("has Cell");
+            Cell targetCell = getCell();
+            targetCell.setTargetable(true);
+            clearCell();
         }
     }
 
     @Override
     public void onDrop() {
         if (hasDropTarget()) {
+            System.out.println("hasDropTarget");
             Cell cell = (Cell) getDropTarget();
             moveToActor(cell);
             setCell(cell);
-            cell.setTargetable(false);
+//            cell.setTargetable(false);
         } else {
-            //avoid blocking view of pile when incorrect
+            //avoid blocking view of player when incorrect
             moveToStart();
         }
-    }
-
-    private Cell getTargetCell() {
-        for (BaseActor cellActor: BaseActor.getList(getStage(), Cell.class.getName())) {
-            Cell cell = (Cell) cellActor;
-            if (cell.getPosition() == targetPosition) {
-                return cell;
-            }
-        }
-        return null;
     }
  }

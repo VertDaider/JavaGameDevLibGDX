@@ -1,6 +1,7 @@
 package ru.serioussem.wander.game.actor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.DropTargetActor;
 import ru.serioussem.wander.game.constants.TypeCell;
 
 public class Cell extends DropTargetActor {
@@ -12,6 +13,7 @@ public class Cell extends DropTargetActor {
     public Cell(float x, float y, int position, int target, int move,  String type, Stage s) {
         super(x, y, s);
         setBoundaryPolygon(8);
+        setSize(70, 27);
         this.position = position;
         this.type = TypeCell.getByType(type);
         this.target = target;

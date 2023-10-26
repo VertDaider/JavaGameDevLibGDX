@@ -5,9 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import ru.serioussem.wander.game.BaseGame;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
 import ru.serioussem.wander.game.WanderGame;
-import ru.serioussem.wander.game.actor.BaseActor;
 
 public class MenuScreen extends BaseScreen {
     @Override

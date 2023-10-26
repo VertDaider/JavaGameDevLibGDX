@@ -15,110 +15,84 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-backend-lwjgl.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-backend-lwjgl-natives</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-backend-lwjgl-natives.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-freetype-natives</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-freetype-natives.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-platform</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-box2d-platform</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-tools</artifactId>
-            <version>${gdxVersion}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-sources.jar</systemPath>
+            <groupId>ru.serioussem</groupId>
+            <artifactId>baseGdx</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-natives.jar</systemPath>
+            <systemPath>${basedir}/../libs-natives/gdx-natives.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-freetype-platform</artifactId>
+            <artifactId>gdx-backend-lwjgl-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx-freetype.jar</systemPath>
+            <systemPath>${basedir}/../libs-natives/gdx-backend-lwjgl-natives.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx</artifactId>
+            <artifactId>gdx-freetype-natives</artifactId>
             <version>${gdxVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../libs/gdx.jar</systemPath>
+            <systemPath>${basedir}/../libs-natives/gdx-freetype-natives.jar</systemPath>
         </dependency>
+<!--        <todo>подумать как вынести библиотеки в сборку, для запуска jar</todo>-->
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
                     <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>ru.serioussem.wander.game.main.DesktopLauncher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
             <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>unpack-dependencies</id>
-                    <phase>generate-resources</phase>
-                    <goals>
-                        <goal>unpack</goal>
-                    </goals>
-                    <configuration>
-                        <markersDirectory>${project.build.directory}/dependencies/dependency-maven-plugin-markers</markersDirectory>
-                        <artifactItems>
-                            <artifactItem>
-                                <groupId>com.badlogicgames.gdx</groupId>
-                                <artifactId>gdx</artifactId>
-                                <type>jar</type>
-                                <outputDirectory>${project.build.directory}/dependencies/gdx</outputDirectory>
-                            </artifactItem>
-                        </artifactItems>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <version>5.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bnd-process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>biz.aQute.bnd</groupId>
+                        <artifactId>biz.aQute.bndlib</artifactId>
+                        <version>5.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
