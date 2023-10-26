@@ -1,0 +1,7 @@
+Bundle-Name: 52CardPickup
+Bundle-SymbolicName: ru.serioussem.52card.pickup
+Bundle-Version: 1.0
+Include-Resource: \
+    @baseGdx-1.0.0.jar
+
+-metatype: *

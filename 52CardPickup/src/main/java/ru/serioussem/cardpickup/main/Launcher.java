@@ -1,8 +1,8 @@
-package ru.serioussem.main;
+package ru.serioussem.cardpickup.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.PickupGame;
+import ru.serioussem.cardpickup.PickupGame;
 
 public class Launcher {
     public static void main(String[] args) {

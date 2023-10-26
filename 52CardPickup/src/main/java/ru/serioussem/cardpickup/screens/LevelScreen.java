@@ -1,19 +1,19 @@
-package ru.serioussem.screens;
+package ru.serioussem.cardpickup.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.Card;
-import ru.serioussem.actors.Pile;
+import ru.serioussem.cardpickup.actors.Card;
+import ru.serioussem.cardpickup.actors.Pile;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
 
 import java.util.ArrayList;
 
 public class LevelScreen extends BaseScreen {
     private ArrayList<Pile> pileList;
-    private final String classCard = "ru.serioussem.actors.Card";
     private Label messageLabel;
 
     public void initialize() {
@@ -40,7 +40,7 @@ public class LevelScreen extends BaseScreen {
             pileList.add(pile);
         }
 
-        for (BaseActor actor : BaseActor.getList(mainStage, classCard)) {
+        for (BaseActor actor : BaseActor.getList(mainStage, Card.class.getName())) {
             Card card = (Card) actor;
             if (card.getRankValue() == 0) {
                 Pile pile = pileList.get(card.getSuitValue());

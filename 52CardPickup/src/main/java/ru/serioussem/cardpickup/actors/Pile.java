@@ -1,6 +1,7 @@
-package ru.serioussem.actors;
+package ru.serioussem.cardpickup.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.DropTargetActor;
 
 import java.util.ArrayList;
 

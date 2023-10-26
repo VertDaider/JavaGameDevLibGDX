@@ -1,6 +1,7 @@
-package ru.serioussem.actors;
+package ru.serioussem.cardpickup.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.DragAndDropActor;
 
 public class Card extends DragAndDropActor {
     public static String[] rankNames = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
