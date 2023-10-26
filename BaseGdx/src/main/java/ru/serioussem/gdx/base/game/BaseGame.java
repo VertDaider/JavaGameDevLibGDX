@@ -1,4 +1,4 @@
-package ru.serioussem.wander.game;
+package ru.serioussem.gdx.base.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import ru.serioussem.wander.game.screen.BaseScreen;
+import ru.serioussem.gdx.base.screen.BaseScreen;
 
 public abstract class BaseGame extends Game {
     private static BaseGame game;

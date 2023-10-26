@@ -1,4 +1,4 @@
-package ru.serioussem.wander.game.actor;
+package ru.serioussem.gdx.base.actor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 

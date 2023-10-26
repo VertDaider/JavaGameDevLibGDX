@@ -1,0 +1,17 @@
+Bundle-Name: base-gdx-module
+Bundle-SymbolicName: ru.serioussem.gdx.base
+Bundle-Version: 1.0.0
+
+Export-Package: *;-split-package:=merge-last
+Bundle-ClassPath:\
+  .,\
+    lib/gdx.jar,\
+    lib/gdx-backend-lwjgl.jar,\
+	lib/gdx-freetype.jar
+
+Include-Resource:\
+	lib/gdx.jar=gdx.jar,\
+	lib/gdx-backend-lwjgl.jar=gdx-backend-lwjgl.jar,\
+	lib/gdx-freetype.jar=gdx-freetype.jar
+
+-metatype: *

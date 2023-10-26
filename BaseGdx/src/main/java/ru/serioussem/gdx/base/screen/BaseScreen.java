@@ -1,4 +1,4 @@
-package ru.serioussem.wander.game.screen;
+package ru.serioussem.gdx.base.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;

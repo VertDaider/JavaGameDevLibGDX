@@ -1,4 +1,4 @@
-package ru.serioussem.wander.game.actor;
+package ru.serioussem.gdx.base.actor;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -55,6 +56,22 @@ public class TilemapActor extends Actor {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject obj : layer.getObjects()) {
                 if (!(obj instanceof EllipseMapObject)) continue;
+
+                MapProperties props = obj.getProperties();
+                if (props.containsKey("name") && props.get("name").equals(propertyName)) {
+                    list.add(obj);
+                }
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<MapObject> getRectangleList(String propertyName) {
+        ArrayList<MapObject> list = new ArrayList<>();
+
+        for (MapLayer layer : tiledMap.getLayers()) {
+            for (MapObject obj : layer.getObjects()) {
+                if (!(obj instanceof RectangleMapObject)) continue;
 
                 MapProperties props = obj.getProperties();
                 if (props.containsKey("name") && props.get("name").equals(propertyName)) {

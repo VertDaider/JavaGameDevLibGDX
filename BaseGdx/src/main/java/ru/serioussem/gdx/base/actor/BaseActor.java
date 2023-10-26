@@ -1,4 +1,4 @@
-package ru.serioussem.wander.game.actor;
+package ru.serioussem.gdx.base.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -445,7 +445,7 @@ public class BaseActor extends Group {
         // initial test to improve performance
         if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle()))
             return false;
-
+        System.out.println("to intersector");
         return Intersector.overlapConvexPolygons(poly1, poly2);
     }
 
