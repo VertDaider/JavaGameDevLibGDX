@@ -1,9 +1,9 @@
-package ru.serioussem.scene;
+package ru.serioussem.starfish.scene;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
-import ru.serioussem.actors.BaseActor;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class SceneActions extends Actions {
     public static Action setText(String s) {

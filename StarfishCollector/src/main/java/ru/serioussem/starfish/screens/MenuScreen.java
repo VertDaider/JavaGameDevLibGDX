@@ -1,13 +1,14 @@
-package ru.serioussem.screens;
+package ru.serioussem.starfish.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import ru.serioussem.BaseGame;
-import ru.serioussem.StarfishGame;
-import ru.serioussem.actors.BaseActor;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.starfish.StarfishGame;
 
 public class MenuScreen extends BaseScreen {
     @Override

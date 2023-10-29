@@ -1,15 +1,16 @@
-package ru.serioussem.screens;
+package ru.serioussem.starfish.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.DialogBox;
-import ru.serioussem.scene.Scene;
-import ru.serioussem.scene.SceneActions;
-import ru.serioussem.scene.SceneSegment;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.starfish.actors.DialogBox;
+import ru.serioussem.starfish.scene.Scene;
+import ru.serioussem.starfish.scene.SceneActions;
+import ru.serioussem.starfish.scene.SceneSegment;
 
 public class StoryScreen extends BaseScreen {
     Scene scene;

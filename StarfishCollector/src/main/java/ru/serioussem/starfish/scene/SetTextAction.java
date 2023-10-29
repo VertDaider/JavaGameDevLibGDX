@@ -1,7 +1,7 @@
-package ru.serioussem.scene;
+package ru.serioussem.starfish.scene;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import ru.serioussem.actors.DialogBox;
+import ru.serioussem.starfish.actors.DialogBox;
 
 public class SetTextAction extends Action {
     protected String textToDisplay;

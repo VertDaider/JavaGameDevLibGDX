@@ -1,6 +1,7 @@
-package ru.serioussem;
+package ru.serioussem.starfish;
 
-import ru.serioussem.screens.MenuScreen;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.starfish.screens.MenuScreen;
 
 public class StarfishGame extends BaseGame {
     @Override

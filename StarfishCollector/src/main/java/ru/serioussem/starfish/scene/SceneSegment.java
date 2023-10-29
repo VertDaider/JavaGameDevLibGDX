@@ -1,4 +1,4 @@
-package ru.serioussem.scene;
+package ru.serioussem.starfish.scene;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;

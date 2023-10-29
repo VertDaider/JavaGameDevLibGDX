@@ -1,8 +1,8 @@
-package ru.serioussem.main;
+package ru.serioussem.starfish.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.StarfishGame;
+import ru.serioussem.starfish.StarfishGame;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {

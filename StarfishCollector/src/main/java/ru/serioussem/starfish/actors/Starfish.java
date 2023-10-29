@@ -1,8 +1,9 @@
-package ru.serioussem.actors;
+package ru.serioussem.starfish.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Starfish extends BaseActor {
     public boolean collected;
