@@ -51,15 +51,12 @@ public class DragAndDropActor extends BaseActor {
 
                     @Override
                     public void touchUp(InputEvent event, float offsetX, float offsetY, int pointer, int button) {
-                        System.out.println("touchUp");
                         self.setDropTarget(null);
                         //keep track of distance to closest object
                         float closestDistance = Float.MAX_VALUE;
 
                         for (BaseActor actor : getList(self.getStage(), DropTargetActor.class.getName())) {
                             DropTargetActor target = (DropTargetActor) actor;
-                            System.out.println(" pre overLap: " + target.getX());
-                            System.out.println(" isTargetable: " + target.isTargetable());
                             if (target.isTargetable() && self.overlaps(target)) {
                                 float currentDistance = Vector2.dst(self.getX(), self.getY(), target.getX(), target.getY());
 

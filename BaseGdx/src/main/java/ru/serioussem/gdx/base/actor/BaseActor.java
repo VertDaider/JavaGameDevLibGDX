@@ -445,7 +445,6 @@ public class BaseActor extends Group {
         // initial test to improve performance
         if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle()))
             return false;
-        System.out.println("to intersector");
         return Intersector.overlapConvexPolygons(poly1, poly2);
     }
 

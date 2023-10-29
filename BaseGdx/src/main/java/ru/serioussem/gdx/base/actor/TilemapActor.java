@@ -21,16 +21,18 @@ import java.util.Iterator;
 
 public class TilemapActor extends Actor {
     //window dimensions
-    public static int windowWidth = 1400;
-    public static int windowHeight = 1000;
+    public static int windowWidth;
+    public static int windowHeight;
 
     private TiledMap tiledMap;
     private OrthographicCamera tiledCamera;
     private OrthoCachedTiledMapRenderer tiledMapRenderer;
 
-    public TilemapActor(String filename, Stage theStage) {
+    public TilemapActor(int width, int height, String filename, Stage theStage) {
         //set up tile map, renderer, and camera
         tiledMap = new TmxMapLoader().load(filename);
+        windowWidth = width;
+        windowHeight = height;
 
         int tileWidth = (int) tiledMap.getProperties().get("tilewidth");
         int tileHeight = (int) tiledMap.getProperties().get("tileheight");
