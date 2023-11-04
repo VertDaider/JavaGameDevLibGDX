@@ -5,12 +5,15 @@ import ru.serioussem.gdx.base.actor.DragAndDropActor;
 
 public class Player extends DragAndDropActor {
     private int targetPosition;
+    private int currentPosition;
+    boolean isActive;
     private Cell cell;
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
         setSize(32, 54);
         setBoundaryRectangle();
+        setDraggable(false);
     }
 
     public int getTargetPosition() {
@@ -23,6 +26,22 @@ public class Player extends DragAndDropActor {
 
     public Cell getCell() {
         return cell;
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public void setCell(Cell cell) {
@@ -47,24 +66,30 @@ public class Player extends DragAndDropActor {
         boundToWorld();
     }
 
-    @Override
-    public void onDragStart() {
-
-        if (hasCell()) {
-            System.out.println("has Cell");
-            Cell targetCell = getCell();
-            targetCell.setTargetable(true);
-            clearCell();
-        }
-    }
+//    @Override
+//    public void onDragStart() {
+//
+//        if (hasCell()) {
+//            System.out.println("has Cell");
+//            Cell targetCell = getCell();
+//            targetCell.setTargetable(true);
+//            clearCell();
+//        }
+//    }
 
     @Override
     public void onDrop() {
         if (hasDropTarget()) {
-            System.out.println("hasDropTarget");
             Cell cell = (Cell) getDropTarget();
-            moveToActor(cell);
-            setCell(cell);
+            if (this.targetPosition == cell.getPosition()) {
+                moveToActor(cell);
+                setDraggable(false);
+                setCell(cell);
+                setCurrentPosition(this.targetPosition);
+            } else {
+                moveToStart();
+            }
+//            setCell(cell);
 //            cell.setTargetable(false);
         } else {
             //avoid blocking view of player when incorrect

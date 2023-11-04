@@ -1,11 +1,7 @@
 package ru.serioussem.wander.game.constants;
 
 public enum TypeCell {
-    START("start"),
-    FINISH("finish"),
-    RED("red"),
     GREEN("green"),
-    YELLOW("yellow"),
     BLUE("blue"),
     WHITE("white");
 

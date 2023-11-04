@@ -10,30 +10,28 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import ru.serioussem.gdx.base.actor.BaseActor;
 import ru.serioussem.gdx.base.actor.TilemapActor;
 import ru.serioussem.gdx.base.game.BaseGame;
 import ru.serioussem.gdx.base.screen.BaseScreen;
 import ru.serioussem.wander.game.WanderGame;
 import ru.serioussem.wander.game.actor.Cell;
+import ru.serioussem.wander.game.actor.Cube;
 import ru.serioussem.wander.game.actor.Player;
-import ru.serioussem.wander.game.constants.TypeCell;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 // TODO: 25.10.2023 сделать модуль с Base классами
 public class GameScreen extends BaseScreen {
-    Player player1;
-    Player player2;
+    private static final int FINISH_CELL_POSITION = 50;
+    private static final int countPlayers = 2;
+    Player currentPlayer;
+    Cube cube;
+    List<Player> playerList;
     private Label messageLabel;
-    Cell finishCell;
-    Cell tempCell;
-//    boolean win;
 
     @Override
     public void initialize() {
-//        win = false;
 
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
         Texture buttonTex = new Texture(Gdx.files.internal("assets/image/undo.png"));
@@ -53,81 +51,73 @@ public class GameScreen extends BaseScreen {
             return true;
         });
 
-        TilemapActor tma = new TilemapActor("assets/image/map.tmx", mainStage);
+
+
+        TilemapActor tma = new TilemapActor(1400, 1000,"assets/image/map.tmx", mainStage);
+        playerList = getPlayerList();
         createObjectsFromTileMap(tma);
 
-        player1.setCell(finishCell);
-        player1.setTargetPosition(50);
+        cube = new Cube((float) Gdx.graphics.getWidth() / 3,(float) Gdx.graphics.getHeight() / 2, mainStage);
+
+        currentPlayer.setDraggable(true);
+        currentPlayer.setTargetPosition(50);
 
         messageLabel = new Label("...", BaseGame.labelStyle);
-        messageLabel.setColor(Color.CYAN);
-
+        messageLabel.setColor(Color.LIME);
+        messageLabel.setVisible(false);
 
         uiTable.pad(10);
 //        uiTable.add(starfishLabel).top();
         uiTable.add().expandX().expandY();
-        uiTable.add(messageLabel).top().expandX().expandY().bottom().pad(50);
-        messageLabel.setVisible(false);
+        uiTable.add(messageLabel).expand( Gdx.graphics.getWidth() / 2,Gdx.graphics.getHeight() / 2);
         uiTable.add(restartButton).top();
+    }
+
+    private List<Player> getPlayerList() {
+        if (playerList == null)
+            return new ArrayList<>();
+        return playerList;
     }
 
     @Override
     public void update(float dt) {
-        checkCollision();
+        checkTurn();
         checkWin();
     }
 
     private void createObjectsFromTileMap(TilemapActor tma) {
+        ArrayList<MapObject> playersObj = tma.getRectangleList("player");
+        for (int i = 0; i < countPlayers; i++) {
+            MapProperties mp = playersObj.get(i).getProperties();
+
+            String color = (String) mp.get("color");
+            playerList.add(new Player((float) mp.get("x"), (float) mp.get("y"), mainStage, color));
+        }
+        playerList.get(0).setActive(true);
+        currentPlayer = playerList.get(0);
+
         ArrayList<MapObject> mapObjects = tma.getRectangleList("cell");
-        System.out.println(mapObjects.size());
+        System.out.println("Objects count: "+mapObjects.size());
         for (MapObject mapObject : mapObjects) {
             MapProperties mp = mapObject.getProperties();
             int pos = (int) mp.get("position");
-            int move = (int) mp.get("move");
+            int target = (int) mp.get("target");
             String type = (String) mp.get("type");
-            if (pos == 1) {
-                player1 = new Player((float) mp.get("x") - 40, (float) mp.get("y") + 40, mainStage, "red");
-                float player1x = player1.getX();
-                float player1y = player1.getY();
-                player2 = new Player(player1x-50, player1y, mainStage, "green");
-//                System.out.println(player1.getWidth());
-            }
-            // TODO: 24.10.2023 в карте добавить целевую ячейку для желтых
-
-            if (type.equals("finish")) {
-                finishCell = new Cell((float) mp.get("x"), (float) mp.get("y"), pos, 0, move, type, mainStage);
-                finishCell.setSize(110, 64);
-//                System.out.println(finishCell.getWidth());
-            }
-            else
-                new Cell((float) mp.get("x"), (float) mp.get("y"), pos, 0, move, type, mainStage);
+            new Cell((float) mp.get("x"), (float) mp.get("y"), pos, target, type, mainStage);
         }
     }
 
-    private void checkCollision() {
-        for (BaseActor cellActor: BaseActor.getList(mainStage, Cell.class.getName())) {
-           player1.preventOverlap(cellActor);
-        }
-//        System.out.println(player1.getX() + " " + player1.getY());
-//        System.out.println(player1.overlaps(testCell));
-//        System.out.println(player1.getX());
-//        System.out.println(finishCell.getX());
-//        System.out.println(player1.overlaps(finishCell));
+    private void checkTurn() {
+//         TODO: 28.10.2023 доделать проверочку
+//        player2.setDraggable(!player1.isDraggable());
     }
 
     private void checkWin() {
-        // TODO: 25.10.2023 тут переделать всё
-        boolean win = false;
-        win = player1.isCorrectTarget();
-        if (win) {
-            if (player1.overlaps(finishCell)) {
-                messageLabel.setText("Player 1 win!");
-                System.out.println("Player 1 win!");
-                messageLabel.setVisible(true);
-            }
-            if (player2.overlaps(finishCell)) {
-                messageLabel.setText("Player 2 win!");
-                System.out.println("Player 2 win!");
+        for(Player player : getPlayerList()) {
+//            if (player.isActive())
+//                System.out.println(player.getX() + " ' " + player.getY());
+            if (player.getCurrentPosition() == FINISH_CELL_POSITION) {
+                messageLabel.setText("Game over");
                 messageLabel.setVisible(true);
             }
         }
