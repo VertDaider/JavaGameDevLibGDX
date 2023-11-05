@@ -8,12 +8,19 @@ public class Player extends DragAndDropActor {
     private int currentPosition;
     boolean isActive;
     private Cell cell;
+    private final String color;
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
         setSize(32, 54);
         setBoundaryRectangle();
         setDraggable(false);
+        setCurrentPosition(0);
+        this.color = colorPlayer;
+    }
+
+    public String getColorPlayer() {
+        return color;
     }
 
     public int getTargetPosition() {
@@ -36,19 +43,19 @@ public class Player extends DragAndDropActor {
         this.currentPosition = currentPosition;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
+//    public boolean isActive() {
+//        return isActive;
+//    }
+//
+//    public void setActive(boolean active) {
+//        isActive = active;
+//    }
 
     public void setCell(Cell cell) {
         this.cell = cell;
     }
 
-    private boolean hasCell() {
+    public boolean hasCell() {
         return cell != null;
     }
 

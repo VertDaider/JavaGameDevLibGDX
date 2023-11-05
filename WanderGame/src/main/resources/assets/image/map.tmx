@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="47" tileheight="50" infinite="0" nextlayerid="10" nextobjectid="117">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="47" tileheight="50" infinite="0" nextlayerid="10" nextobjectid="118">
  <imagelayer id="7" name="Слой изображений 1">
   <image source="../map.jpg" width="1400" height="1000"/>
  </imagelayer>
@@ -450,6 +450,11 @@
     <property name="position" type="int" value="9"/>
     <property name="target" type="int" value="0"/>
     <property name="type" value="white"/>
+   </properties>
+  </object>
+  <object id="117" x="56" y="664">
+   <properties>
+    <property name="name" value="cube"/>
    </properties>
   </object>
  </objectgroup>

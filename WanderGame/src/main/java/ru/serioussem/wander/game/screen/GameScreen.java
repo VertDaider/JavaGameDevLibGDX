@@ -17,14 +17,15 @@ import ru.serioussem.wander.game.WanderGame;
 import ru.serioussem.wander.game.actor.Cell;
 import ru.serioussem.wander.game.actor.Cube;
 import ru.serioussem.wander.game.actor.Player;
+import ru.serioussem.wander.game.constants.TypeCell;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: 25.10.2023 сделать модуль с Base классами
 public class GameScreen extends BaseScreen {
     private static final int FINISH_CELL_POSITION = 50;
-    private static final int countPlayers = 2;
+    private static final int COUNT_PLAYERS = 2;
+    int currentIndexPlayer;
     Player currentPlayer;
     Cube cube;
     List<Player> playerList;
@@ -37,7 +38,6 @@ public class GameScreen extends BaseScreen {
         Texture buttonTex = new Texture(Gdx.files.internal("assets/image/undo.png"));
         TextureRegion buttonRegion = new TextureRegion(buttonTex);
         buttonStyle.up = new TextureRegionDrawable(buttonRegion);
-
         Button restartButton = new Button(buttonStyle);
         restartButton.setColor(Color.CYAN);
 
@@ -51,16 +51,10 @@ public class GameScreen extends BaseScreen {
             return true;
         });
 
-
-
         TilemapActor tma = new TilemapActor(1400, 1000,"assets/image/map.tmx", mainStage);
         playerList = getPlayerList();
+        currentIndexPlayer = 0;
         createObjectsFromTileMap(tma);
-
-        cube = new Cube((float) Gdx.graphics.getWidth() / 3,(float) Gdx.graphics.getHeight() / 2, mainStage);
-
-        currentPlayer.setDraggable(true);
-        currentPlayer.setTargetPosition(50);
 
         messageLabel = new Label("...", BaseGame.labelStyle);
         messageLabel.setColor(Color.LIME);
@@ -82,22 +76,24 @@ public class GameScreen extends BaseScreen {
     @Override
     public void update(float dt) {
         checkTurn();
-        checkWin();
+        checkPostTurn();
     }
 
     private void createObjectsFromTileMap(TilemapActor tma) {
         ArrayList<MapObject> playersObj = tma.getRectangleList("player");
-        for (int i = 0; i < countPlayers; i++) {
+        for (int i = 0; i < COUNT_PLAYERS; i++) {
             MapProperties mp = playersObj.get(i).getProperties();
-
-            String color = (String) mp.get("color");
-            playerList.add(new Player((float) mp.get("x"), (float) mp.get("y"), mainStage, color));
+            playerList.add(new Player((float) mp.get("x"), (float) mp.get("y"), mainStage,  (String) mp.get("color")));
         }
-        playerList.get(0).setActive(true);
-        currentPlayer = playerList.get(0);
+        currentPlayer = playerList.get(currentIndexPlayer);
+        currentPlayer.setDraggable(true);
+
+        ArrayList<MapObject> cubeObj = tma.getRectangleList("cube");
+        cube = new Cube((float) cubeObj.get(0).getProperties().get("x"),(float) cubeObj.get(0).getProperties().get("y"), mainStage);
+//        cube.setActive(true);
 
         ArrayList<MapObject> mapObjects = tma.getRectangleList("cell");
-        System.out.println("Objects count: "+mapObjects.size());
+//        System.out.println("Objects count: "+mapObjects.size());
         for (MapObject mapObject : mapObjects) {
             MapProperties mp = mapObject.getProperties();
             int pos = (int) mp.get("position");
@@ -107,19 +103,70 @@ public class GameScreen extends BaseScreen {
         }
     }
 
-    private void checkTurn() {
-//         TODO: 28.10.2023 доделать проверочку
-//        player2.setDraggable(!player1.isDraggable());
+    private void checkPostTurn() {
+        if (currentPlayer.hasCell()) {
+            Cell cell = currentPlayer.getCell();
+            if (cell.getTarget()> 0) {
+                currentPlayer.setDraggable(true);
+                currentPlayer.setTargetPosition(cell.getTarget());
+                messageLabel.setText(currentPlayer.getColorPlayer()+" player turn on task");
+            } else if (cell.getType() == TypeCell.BLUE) {
+                cube.setCurrentEdge(0);
+                cube.setActive(true);
+                currentPlayer = getNextPlayer();
+                currentPlayer.setDraggable(true);
+
+                // TODO: 05.11.2023 пропуск
+            } else if (cell.getType() == TypeCell.GREEN) {
+                currentPlayer.setDraggable(true);
+                messageLabel.setText(currentPlayer.getColorPlayer()+" player turn again. Roll cube!");
+                cube.setActive(true);
+            } else {
+                cube.setCurrentEdge(0);
+                cube.setActive(true);
+                currentPlayer = getNextPlayer();
+                currentPlayer.setDraggable(true);
+            }
+            System.out.println(currentPlayer.getColorPlayer());
+        }
     }
 
-    private void checkWin() {
+    private void checkTurn() {
         for(Player player : getPlayerList()) {
-//            if (player.isActive())
-//                System.out.println(player.getX() + " ' " + player.getY());
+            if (player.isDraggable()) {
+                if (cube.isActive()) {
+                    messageLabel.setText(player.getColorPlayer()+" player turn cube");
+                } else {
+                    messageLabel.setText(player.getColorPlayer() + " player moves to "+cube.getCurrentEdge()+" squares");
+                    player.setTargetPosition(player.getCurrentPosition()+ cube.getCurrentEdge());
+                }
+                messageLabel.setVisible(true);
+            } else
             if (player.getCurrentPosition() == FINISH_CELL_POSITION) {
                 messageLabel.setText("Game over");
                 messageLabel.setVisible(true);
             }
         }
+    }
+
+    private Player getNextPlayer() {
+        System.out.println(currentIndexPlayer);
+        currentIndexPlayer++;
+        System.out.println(currentIndexPlayer);
+        if (currentIndexPlayer == playerList.size() - 1) {
+            setCurrentIndexPlayer(0);
+            return playerList.get(currentIndexPlayer);
+        }
+        else {
+            return playerList.get(currentIndexPlayer + 1);
+        }
+    }
+
+    public int getCurrentIndexPlayer() {
+        return currentIndexPlayer;
+    }
+
+    public void setCurrentIndexPlayer(int currentIndexPlayer) {
+        this.currentIndexPlayer = currentIndexPlayer;
     }
 }
