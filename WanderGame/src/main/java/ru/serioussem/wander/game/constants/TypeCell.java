@@ -3,6 +3,8 @@ package ru.serioussem.wander.game.constants;
 public enum TypeCell {
     GREEN("green"),
     BLUE("blue"),
+    YELLOW("yellow"),
+    RED("red"),
     WHITE("white");
 
     private String type;

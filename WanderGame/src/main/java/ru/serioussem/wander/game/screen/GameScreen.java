@@ -25,10 +25,10 @@ import java.util.List;
 public class GameScreen extends BaseScreen {
     private static final int FINISH_CELL_POSITION = 50;
     private static final int COUNT_PLAYERS = 2;
-    int currentIndexPlayer;
+    int activePlayerIndex;
     Player currentPlayer;
     Cube cube;
-    List<Player> playerList;
+    List<Player> players;
     private Label messageLabel;
 
     @Override
@@ -51,9 +51,9 @@ public class GameScreen extends BaseScreen {
             return true;
         });
 
-        TilemapActor tma = new TilemapActor(1400, 1000,"assets/image/map.tmx", mainStage);
-        playerList = getPlayerList();
-        currentIndexPlayer = 0;
+        TilemapActor tma = new TilemapActor(1400, 1000, "assets/image/map.tmx", mainStage);
+        players = getPlayers();
+        activePlayerIndex = 0;
         createObjectsFromTileMap(tma);
 
         messageLabel = new Label("...", BaseGame.labelStyle);
@@ -63,14 +63,14 @@ public class GameScreen extends BaseScreen {
         uiTable.pad(10);
 //        uiTable.add(starfishLabel).top();
         uiTable.add().expandX().expandY();
-        uiTable.add(messageLabel).expand( Gdx.graphics.getWidth() / 2,Gdx.graphics.getHeight() / 2);
+        uiTable.add(messageLabel).expand(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         uiTable.add(restartButton).top();
     }
 
-    private List<Player> getPlayerList() {
-        if (playerList == null)
+    private List<Player> getPlayers() {
+        if (players == null)
             return new ArrayList<>();
-        return playerList;
+        return players;
     }
 
     @Override
@@ -83,13 +83,13 @@ public class GameScreen extends BaseScreen {
         ArrayList<MapObject> playersObj = tma.getRectangleList("player");
         for (int i = 0; i < COUNT_PLAYERS; i++) {
             MapProperties mp = playersObj.get(i).getProperties();
-            playerList.add(new Player((float) mp.get("x"), (float) mp.get("y"), mainStage,  (String) mp.get("color")));
+            players.add(new Player((float) mp.get("x"), (float) mp.get("y"), mainStage, (String) mp.get("color")));
         }
-        currentPlayer = playerList.get(currentIndexPlayer);
+        currentPlayer = players.get(activePlayerIndex);
         currentPlayer.setDraggable(true);
 
         ArrayList<MapObject> cubeObj = tma.getRectangleList("cube");
-        cube = new Cube((float) cubeObj.get(0).getProperties().get("x"),(float) cubeObj.get(0).getProperties().get("y"), mainStage);
+        cube = new Cube((float) cubeObj.get(0).getProperties().get("x"), (float) cubeObj.get(0).getProperties().get("y"), mainStage);
 //        cube.setActive(true);
 
         ArrayList<MapObject> mapObjects = tma.getRectangleList("cell");
@@ -106,67 +106,73 @@ public class GameScreen extends BaseScreen {
     private void checkPostTurn() {
         if (currentPlayer.hasCell()) {
             Cell cell = currentPlayer.getCell();
-            if (cell.getTarget()> 0) {
-                currentPlayer.setDraggable(true);
-                currentPlayer.setTargetPosition(cell.getTarget());
-                messageLabel.setText(currentPlayer.getColorPlayer()+" player turn on task");
-            } else if (cell.getType() == TypeCell.BLUE) {
-                cube.setCurrentEdge(0);
-                cube.setActive(true);
-                currentPlayer = getNextPlayer();
-                currentPlayer.setDraggable(true);
-
-                // TODO: 05.11.2023 пропуск
-            } else if (cell.getType() == TypeCell.GREEN) {
-                currentPlayer.setDraggable(true);
-                messageLabel.setText(currentPlayer.getColorPlayer()+" player turn again. Roll cube!");
-                cube.setActive(true);
-            } else {
-                cube.setCurrentEdge(0);
-                cube.setActive(true);
-                currentPlayer = getNextPlayer();
-                currentPlayer.setDraggable(true);
+            switch (cell.getType()) {
+                case BLUE:
+                    cube.setCurrentEdge(0);
+                    cube.setActive(true);
+                    currentPlayer.clearCell();
+                    currentPlayer.setSkipNextMove(true);
+                    currentPlayer = getActivePlayer();
+                    currentPlayer.setDraggable(true);
+                    break;
+                case GREEN:
+                    currentPlayer.setDraggable(true);
+                    messageLabel.setText(currentPlayer.getColorPlayer() + " player turn again. Roll cube!");
+                    cube.setCurrentEdge(0);
+                    cube.setActive(true);
+                    break;
+                case WHITE:
+                    cube.setCurrentEdge(0);
+                    cube.setActive(true);
+                    currentPlayer.clearCell();
+                    currentPlayer = getActivePlayer();
+                    if (currentPlayer.isSkipNextMove()) {
+                        currentPlayer.setSkipNextMove(false);
+                        currentPlayer = getActivePlayer();
+                    }
+                    currentPlayer.setDraggable(true);
+                    break;
+                default:
+                    currentPlayer.setDraggable(true);
+                    currentPlayer.setTargetPosition(cell.getTarget());
+                    messageLabel.setText(currentPlayer.getColorPlayer() + " player turn on task");
+                    break;
             }
-            System.out.println(currentPlayer.getColorPlayer());
         }
     }
 
     private void checkTurn() {
-        for(Player player : getPlayerList()) {
+        for (Player player : getPlayers()) {
             if (player.isDraggable()) {
                 if (cube.isActive()) {
-                    messageLabel.setText(player.getColorPlayer()+" player turn cube");
+                    messageLabel.setText(player.getColorPlayer() + " player roll cube");
                 } else {
-                    messageLabel.setText(player.getColorPlayer() + " player moves to "+cube.getCurrentEdge()+" squares");
-                    player.setTargetPosition(player.getCurrentPosition()+ cube.getCurrentEdge());
+                    messageLabel.setText(player.getColorPlayer() + " player moves to " + cube.getCurrentEdge() + " squares");
+                    player.setTargetPosition(Math.min(player.getCurrentPosition() + cube.getCurrentEdge(), FINISH_CELL_POSITION));
+                    player.toFront();
                 }
                 messageLabel.setVisible(true);
-            } else
+            }
             if (player.getCurrentPosition() == FINISH_CELL_POSITION) {
-                messageLabel.setText("Game over");
+                messageLabel.setText("Game over. Player " + player.getColorPlayer() + " win!");
+                cube.setActive(false);
                 messageLabel.setVisible(true);
             }
         }
     }
 
-    private Player getNextPlayer() {
-        System.out.println(currentIndexPlayer);
-        currentIndexPlayer++;
-        System.out.println(currentIndexPlayer);
-        if (currentIndexPlayer == playerList.size() - 1) {
-            setCurrentIndexPlayer(0);
-            return playerList.get(currentIndexPlayer);
-        }
-        else {
-            return playerList.get(currentIndexPlayer + 1);
+    public void switchToNextPlayer() {
+        activePlayerIndex++;
+        if (activePlayerIndex >= players.size()) {
+            activePlayerIndex = 0;
         }
     }
 
-    public int getCurrentIndexPlayer() {
-        return currentIndexPlayer;
-    }
-
-    public void setCurrentIndexPlayer(int currentIndexPlayer) {
-        this.currentIndexPlayer = currentIndexPlayer;
+    public Player getActivePlayer() {
+        activePlayerIndex++;
+        if (activePlayerIndex >= players.size()) {
+            activePlayerIndex = 0;
+        }
+        return players.get(activePlayerIndex);
     }
 }

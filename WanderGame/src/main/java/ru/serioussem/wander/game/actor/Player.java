@@ -6,9 +6,9 @@ import ru.serioussem.gdx.base.actor.DragAndDropActor;
 public class Player extends DragAndDropActor {
     private int targetPosition;
     private int currentPosition;
-    boolean isActive;
     private Cell cell;
     private final String color;
+    private boolean isSkipNextMove;
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
@@ -43,14 +43,6 @@ public class Player extends DragAndDropActor {
         this.currentPosition = currentPosition;
     }
 
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    public void setActive(boolean active) {
-//        isActive = active;
-//    }
-
     public void setCell(Cell cell) {
         this.cell = cell;
     }
@@ -59,12 +51,17 @@ public class Player extends DragAndDropActor {
         return cell != null;
     }
 
-    public boolean isCorrectTarget() {
-        return hasCell() && cell.getPosition() == targetPosition;
-    }
 
     public void clearCell() {
         cell = null;
+    }
+
+    public boolean isSkipNextMove() {
+        return isSkipNextMove;
+    }
+
+    public void setSkipNextMove(boolean skipNextMove) {
+        isSkipNextMove = skipNextMove;
     }
 
     @Override

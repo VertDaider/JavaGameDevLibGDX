@@ -113,7 +113,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="44"/>
     <property name="target" type="int" value="46"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="75" x="710.5" y="236" width="68" height="40">
@@ -129,7 +129,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="42"/>
     <property name="target" type="int" value="38"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="77" x="601.5" y="221.5" width="68" height="35">
@@ -145,7 +145,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="40"/>
     <property name="target" type="int" value="39"/>
-    <property name="type" value="white"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
   <object id="79" x="475" y="228" width="68" height="40">
@@ -185,7 +185,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="35"/>
     <property name="target" type="int" value="37"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="84" x="100.667" y="355" width="68" height="40">
@@ -193,7 +193,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="34"/>
     <property name="target" type="int" value="37"/>
-    <property name="type" value="white"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
   <object id="85" x="121.5" y="426" width="68" height="40">
@@ -225,7 +225,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="30"/>
     <property name="target" type="int" value="25"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="89" x="352" y="544.5" width="68" height="40">
@@ -257,7 +257,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="26"/>
     <property name="target" type="int" value="29"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="93" x="569.5" y="589.5" width="68" height="40">
@@ -289,7 +289,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="22"/>
     <property name="target" type="int" value="20"/>
-    <property name="type" value="white"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
   <object id="97" x="935.5" y="598.5" width="68" height="40">
@@ -321,7 +321,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="18"/>
     <property name="target" type="int" value="21"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="101" x="1226" y="675.5" width="68" height="40">
@@ -329,7 +329,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="17"/>
     <property name="target" type="int" value="15"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="102" x="1240" y="728.5" width="68" height="40">
@@ -337,7 +337,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="16"/>
     <property name="target" type="int" value="17"/>
-    <property name="type" value="white"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
   <object id="103" x="1252.5" y="786.5" width="68" height="40">
@@ -417,7 +417,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="5"/>
     <property name="target" type="int" value="7"/>
-    <property name="type" value="white"/>
+    <property name="type" value="red"/>
    </properties>
   </object>
   <object id="114" x="556.5" y="921.5" width="68" height="40">
@@ -425,7 +425,7 @@
     <property name="name" value="cell"/>
     <property name="position" type="int" value="4"/>
     <property name="target" type="int" value="9"/>
-    <property name="type" value="white"/>
+    <property name="type" value="yellow"/>
    </properties>
   </object>
   <object id="115" x="456.5" y="927" width="68" height="40">
