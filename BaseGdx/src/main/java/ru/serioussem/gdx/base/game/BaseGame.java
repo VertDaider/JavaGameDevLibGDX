@@ -32,7 +32,7 @@ public abstract class BaseGame extends Game {
         InputMultiplexer im = new InputMultiplexer();
         Gdx.input.setInputProcessor(im);
 
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/OpenSans.ttf"));
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/calibri.ttf"));
         FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
         fontParameter.size = 48;
         fontParameter.color = Color.WHITE;
@@ -41,6 +41,7 @@ public abstract class BaseGame extends Game {
         fontParameter.borderStraight = true;
         fontParameter.minFilter = TextureFilter.Linear;
         fontParameter.magFilter = TextureFilter.Linear;
+        fontParameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯЁёабвгдежзийклмнопрстуфхцчшщъыьэюя";
 
         labelStyle = new LabelStyle();
         BitmapFont customFont = fontGenerator.generateFont(fontParameter);

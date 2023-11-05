@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import ru.serioussem.gdx.base.actor.BaseActor;
 import ru.serioussem.gdx.base.actor.TilemapActor;
 import ru.serioussem.gdx.base.game.BaseGame;
 import ru.serioussem.gdx.base.screen.BaseScreen;
@@ -17,7 +18,6 @@ import ru.serioussem.wander.game.WanderGame;
 import ru.serioussem.wander.game.actor.Cell;
 import ru.serioussem.wander.game.actor.Cube;
 import ru.serioussem.wander.game.actor.Player;
-import ru.serioussem.wander.game.constants.TypeCell;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ public class GameScreen extends BaseScreen {
     private static final int FINISH_CELL_POSITION = 50;
     private static final int COUNT_PLAYERS = 2;
     int activePlayerIndex;
+    private Label cellLabel;
     Player currentPlayer;
     Cube cube;
     List<Player> players;
@@ -51,6 +52,9 @@ public class GameScreen extends BaseScreen {
             return true;
         });
 
+        cellLabel = new Label("  ", BaseGame.labelStyle);
+        cellLabel.setColor(Color.PURPLE);
+
         TilemapActor tma = new TilemapActor(1400, 1000, "assets/image/map.tmx", mainStage);
         players = getPlayers();
         activePlayerIndex = 0;
@@ -61,9 +65,9 @@ public class GameScreen extends BaseScreen {
         messageLabel.setVisible(false);
 
         uiTable.pad(10);
-//        uiTable.add(starfishLabel).top();
+        uiTable.add(cellLabel).top();
         uiTable.add().expandX().expandY();
-        uiTable.add(messageLabel).expand(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        uiTable.add(messageLabel).top();
         uiTable.add(restartButton).top();
     }
 
@@ -77,6 +81,7 @@ public class GameScreen extends BaseScreen {
     public void update(float dt) {
         checkTurn();
         checkPostTurn();
+        cellLabel.setText(String.format("До финиша: %d", FINISH_CELL_POSITION - getMaxPosition()));
     }
 
     private void createObjectsFromTileMap(TilemapActor tma) {
@@ -90,10 +95,8 @@ public class GameScreen extends BaseScreen {
 
         ArrayList<MapObject> cubeObj = tma.getRectangleList("cube");
         cube = new Cube((float) cubeObj.get(0).getProperties().get("x"), (float) cubeObj.get(0).getProperties().get("y"), mainStage);
-//        cube.setActive(true);
 
         ArrayList<MapObject> mapObjects = tma.getRectangleList("cell");
-//        System.out.println("Objects count: "+mapObjects.size());
         for (MapObject mapObject : mapObjects) {
             MapProperties mp = mapObject.getProperties();
             int pos = (int) mp.get("position");
@@ -113,13 +116,11 @@ public class GameScreen extends BaseScreen {
                     currentPlayer.clearCell();
                     currentPlayer.setSkipNextMove(true);
                     currentPlayer = getActivePlayer();
-                    currentPlayer.setDraggable(true);
                     break;
                 case GREEN:
-                    currentPlayer.setDraggable(true);
-                    messageLabel.setText(currentPlayer.getColorPlayer() + " player turn again. Roll cube!");
                     cube.setCurrentEdge(0);
                     cube.setActive(true);
+                    currentPlayer.clearCell();
                     break;
                 case WHITE:
                     cube.setCurrentEdge(0);
@@ -130,14 +131,13 @@ public class GameScreen extends BaseScreen {
                         currentPlayer.setSkipNextMove(false);
                         currentPlayer = getActivePlayer();
                     }
-                    currentPlayer.setDraggable(true);
                     break;
                 default:
-                    currentPlayer.setDraggable(true);
                     currentPlayer.setTargetPosition(cell.getTarget());
-                    messageLabel.setText(currentPlayer.getColorPlayer() + " player turn on task");
+                    messageLabel.setText(currentPlayer.getRusColor() + " игрок ходит");
                     break;
             }
+            currentPlayer.setDraggable(true);
         }
     }
 
@@ -145,26 +145,19 @@ public class GameScreen extends BaseScreen {
         for (Player player : getPlayers()) {
             if (player.isDraggable()) {
                 if (cube.isActive()) {
-                    messageLabel.setText(player.getColorPlayer() + " player roll cube");
+                    messageLabel.setText(player.getRusColor() + " игрок бросает кубик");
                 } else {
-                    messageLabel.setText(player.getColorPlayer() + " player moves to " + cube.getCurrentEdge() + " squares");
+                    messageLabel.setText(player.getRusColor() + " игрок ходит на " + cube.getCurrentEdge() + " клеток");
                     player.setTargetPosition(Math.min(player.getCurrentPosition() + cube.getCurrentEdge(), FINISH_CELL_POSITION));
                     player.toFront();
                 }
                 messageLabel.setVisible(true);
             }
             if (player.getCurrentPosition() == FINISH_CELL_POSITION) {
-                messageLabel.setText("Game over. Player " + player.getColorPlayer() + " win!");
+                messageLabel.setText("Game over. Победил " + player.getRusColor() + " игрок!");
                 cube.setActive(false);
                 messageLabel.setVisible(true);
             }
-        }
-    }
-
-    public void switchToNextPlayer() {
-        activePlayerIndex++;
-        if (activePlayerIndex >= players.size()) {
-            activePlayerIndex = 0;
         }
     }
 
@@ -174,5 +167,14 @@ public class GameScreen extends BaseScreen {
             activePlayerIndex = 0;
         }
         return players.get(activePlayerIndex);
+    }
+
+    private int getMaxPosition() {
+        int max = 0;
+        for (Player p: getPlayers()) {
+            if (p.getCurrentPosition() > max)
+                max = p.getCurrentPosition();
+        }
+        return max;
     }
 }

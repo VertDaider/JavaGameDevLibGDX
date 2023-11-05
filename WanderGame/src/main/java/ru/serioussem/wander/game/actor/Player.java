@@ -2,6 +2,7 @@ package ru.serioussem.wander.game.actor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.serioussem.gdx.base.actor.DragAndDropActor;
+import ru.serioussem.wander.game.constants.TypeCell;
 
 public class Player extends DragAndDropActor {
     private int targetPosition;
@@ -9,9 +10,11 @@ public class Player extends DragAndDropActor {
     private Cell cell;
     private final String color;
     private boolean isSkipNextMove;
+    private final TypeCell typeCell;
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
+        typeCell = TypeCell.getByType(colorPlayer);
         setSize(32, 54);
         setBoundaryRectangle();
         setDraggable(false);
@@ -51,6 +54,9 @@ public class Player extends DragAndDropActor {
         return cell != null;
     }
 
+    public String getRusColor() {
+        return typeCell.getRusName();
+    }
 
     public void clearCell() {
         cell = null;

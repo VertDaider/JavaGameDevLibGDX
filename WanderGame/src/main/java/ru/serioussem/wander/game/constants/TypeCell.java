@@ -1,16 +1,18 @@
 package ru.serioussem.wander.game.constants;
 
 public enum TypeCell {
-    GREEN("green"),
-    BLUE("blue"),
-    YELLOW("yellow"),
-    RED("red"),
-    WHITE("white");
+    GREEN("green", "Зеленый"),
+    BLUE("blue", "Синий"),
+    YELLOW("yellow", "Желтый"),
+    RED("red", "Красный"),
+    WHITE("white", "Белый");
 
-    private String type;
+    private final String type;
+    private final String rusName;
 
-    TypeCell(String type) {
+    TypeCell(String type, String rusName) {
         this.type = type;
+        this.rusName = rusName;
     }
 
     static public TypeCell getByType(String type) throws IllegalArgumentException {
@@ -26,10 +28,13 @@ public enum TypeCell {
         return type;
     }
 
+    public String getRusName() {return rusName;};
+
     @Override
     public String toString() {
         return "TypeCell{" +
                 "type='" + type + '\'' +
+                ", rusName='" + rusName + '\'' +
                 '}';
     }
 }
