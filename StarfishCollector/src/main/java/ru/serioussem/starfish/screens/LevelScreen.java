@@ -50,13 +50,6 @@ public class LevelScreen extends BaseScreen {
         win = false;
         TilemapActor tma = new TilemapActor(1200,900,"assets/map.tmx", mainStage);
 
-//        BaseActor ocean = new BaseActor(0, 0, mainStage);
-//        ocean.loadTexture("assets/water-border.jpg");
-//        ocean.setSize(WORLD_WIDTH, WORLD_HEIGHT);
-//        BaseActor.setWorldBounds(ocean);
-
-//        turtle = new Turtle((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 2, mainStage);
-
         starfishLabel = new Label("Starfish left: ", BaseGame.labelStyle);
         starfishLabel.setColor(Color.CYAN);
 

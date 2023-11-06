@@ -7,8 +7,8 @@ import ru.serioussem.starfish.StarfishGame;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 1200;
-        config.height = 900;
+        config.width = 1600;
+        config.height = 1200;
         config.samples = 3;
         config.title = "Starfish Collector";
         new LwjglApplication(new StarfishGame(), config);
