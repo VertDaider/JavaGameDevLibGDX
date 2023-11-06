@@ -1,8 +1,8 @@
-package ru.serioussem.main;
+package ru.serioussem.rectangledest.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.RectangleGame;
+import ru.serioussem.rectangledest.RectangleGame;
 
 public class Launcher {
     public static void main(String[] args) {

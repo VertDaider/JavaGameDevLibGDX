@@ -1,7 +1,8 @@
-package ru.serioussem.actors;
+package ru.serioussem.rectangledest.actors;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Ball extends BaseActor {
     private boolean paused;

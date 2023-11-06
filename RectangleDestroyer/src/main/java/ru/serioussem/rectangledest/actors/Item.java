@@ -1,8 +1,9 @@
-package ru.serioussem.actors;
+package ru.serioussem.rectangledest.actors;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Item extends BaseActor {
     public enum Type {

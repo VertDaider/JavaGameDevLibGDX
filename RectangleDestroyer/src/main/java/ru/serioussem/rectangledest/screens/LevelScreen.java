@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.rectangledest.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -8,15 +8,15 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.*;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.actor.TilemapActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.rectangledest.actors.*;
 
 public class LevelScreen extends BaseScreen {
     Paddle paddle;
     Ball ball;
-    private static final String classWall = "ru.serioussem.actors.Wall";
-    private static final String classBrick = "ru.serioussem.actors.Brick";
-    private static final String classItem = "ru.serioussem.actors.Item";
     int score;
     int balls;
     Label scoreLabel;
@@ -65,7 +65,7 @@ public class LevelScreen extends BaseScreen {
 
     private void setUpTileMap() {
 
-        TilemapActor tma = new TilemapActor("assets/map.tmx", mainStage);
+        TilemapActor tma = new TilemapActor(1280, 960, "assets/map.tmx", mainStage);
 
         for (MapObject obj : tma.getTileList("Wall")) {
             MapProperties props = obj.getProperties();
@@ -129,7 +129,7 @@ public class LevelScreen extends BaseScreen {
         }
 
         //bouncing off the walls
-        for (BaseActor wall : BaseActor.getList(mainStage, classWall)) {
+        for (BaseActor wall : BaseActor.getList(mainStage, Wall.class.getName())) {
             if (ball.overlaps(wall)) {
                 ball.bounceOff(wall);
                 wallBumpSound.play();
@@ -137,7 +137,7 @@ public class LevelScreen extends BaseScreen {
         }
 
         //bouncing off the bricks
-        for (BaseActor brick : BaseActor.getList(mainStage, classBrick)) {
+        for (BaseActor brick : BaseActor.getList(mainStage, Brick.class.getName())) {
             Brick br = (Brick) brick;
             if (ball.overlaps(brick)) {
                 brickBumpSound.play();
@@ -171,7 +171,7 @@ public class LevelScreen extends BaseScreen {
             bounceSound.play();
         }
 
-        if (BaseActor.count(mainStage, classBrick) == 0) {
+        if (BaseActor.count(mainStage, Brick.class.getName()) == 0) {
             messageLabel.setText("You win!");
             messageLabel.setColor(Color.LIME);
             messageLabel.setVisible(true);
@@ -179,7 +179,7 @@ public class LevelScreen extends BaseScreen {
         }
 
         //UI
-        if (ball.getY() < -50 && BaseActor.count(mainStage, classBrick) > 0) {
+        if (ball.getY() < -50 && BaseActor.count(mainStage, Brick.class.getName()) > 0) {
             ball.remove();
             if (balls > 0) {
                 balls -= 1;
@@ -197,7 +197,7 @@ public class LevelScreen extends BaseScreen {
         }
 
         //checkItems
-        for (BaseActor item : BaseActor.getList(mainStage, classItem)) {
+        for (BaseActor item : BaseActor.getList(mainStage, Item.class.getName())) {
             if (paddle.overlaps(item)) {
                 Item realItem = (Item) item;
 

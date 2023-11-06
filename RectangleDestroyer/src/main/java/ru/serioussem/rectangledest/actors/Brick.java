@@ -1,7 +1,8 @@
-package ru.serioussem.actors;
+package ru.serioussem.rectangledest.actors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Brick extends BaseActor {
     private int hp;
