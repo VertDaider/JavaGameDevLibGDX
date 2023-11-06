@@ -17,13 +17,8 @@ public class MenuScreen extends BaseScreen {
         map.loadTexture("assets/map.jpg");
         map.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-//        BaseActor title = new BaseActor(0, 0, mainStage);
-//        title.loadTexture("assets/starfish-collector.png");
-
         TextButton startLevelButton = new TextButton("Start game", BaseGame.textButtonStyle);
         uiStage.addActor(startLevelButton);
-//        TextButton startLevelTwoButton = new TextButton("Level 2", BaseGame.textButtonStyle);
-//        uiStage.addActor(startLevelTwoButton);
         TextButton quitButton = new TextButton("Quit", BaseGame.textButtonStyle);
         uiStage.addActor(quitButton);
 
@@ -49,10 +44,8 @@ public class MenuScreen extends BaseScreen {
                 }
         );
 
-//        uiTable.add(title).colspan(3);
         uiTable.row();
         uiTable.add(startLevelButton);
-//        uiTable.add(startLevelTwoButton);
         uiTable.add(quitButton);
     }
 
@@ -67,9 +60,6 @@ public class MenuScreen extends BaseScreen {
     }
 
     public boolean keyDown(int keyCode) {
-//        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-//            WanderGame.setActiveScreen(new LevelScreen());
-//        }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }

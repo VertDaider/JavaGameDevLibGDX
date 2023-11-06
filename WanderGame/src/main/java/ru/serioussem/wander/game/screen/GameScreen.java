@@ -1,6 +1,8 @@
 package ru.serioussem.wander.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import ru.serioussem.gdx.base.actor.BaseActor;
 import ru.serioussem.gdx.base.actor.TilemapActor;
 import ru.serioussem.gdx.base.game.BaseGame;
 import ru.serioussem.gdx.base.screen.BaseScreen;
@@ -32,6 +33,11 @@ public class GameScreen extends BaseScreen {
     List<Player> players;
     private Label messageLabel;
 
+    private float audioVolume;
+    private float audioVolumeBegin;
+    private Sound playerDrop;
+    private Music backgroundMusic;
+
     @Override
     public void initialize() {
 
@@ -46,11 +52,34 @@ public class GameScreen extends BaseScreen {
             if (!isTouchDownEvent(e)) {
                 return false;
             }
-//            instrumental.dispose();
-//            oceanSurf.dispose();
+            backgroundMusic.dispose();
             WanderGame.setActiveScreen(new MenuScreen());
             return true;
         });
+
+        Button.ButtonStyle buttonStyle2 = new Button.ButtonStyle();
+        Texture buttonTex2 = new Texture(Gdx.files.internal("assets/image/audio.png"));
+        TextureRegion buttonRegion2 = new TextureRegion(buttonTex2);
+        buttonStyle2.up = new TextureRegionDrawable(buttonRegion2);
+
+        Button muteButton = new Button(buttonStyle2);
+        muteButton.setColor(Color.CYAN);
+
+        muteButton.addListener(
+                (Event e) ->
+                {
+                    if (!isTouchDownEvent(e)) {
+                        return false;
+                    }
+                    if (audioVolume != 0) {
+                        audioVolume = 0;
+                    } else {
+                        audioVolume = audioVolumeBegin;
+                    }
+                    backgroundMusic.setVolume(audioVolume);
+                    return true;
+                }
+        );
 
         cellLabel = new Label("  ", BaseGame.labelStyle);
         cellLabel.setColor(Color.PURPLE);
@@ -59,6 +88,14 @@ public class GameScreen extends BaseScreen {
         players = getPlayers();
         activePlayerIndex = 0;
         createObjectsFromTileMap(tma);
+
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/sound/ghostsound.ogg"));
+
+        audioVolume = 0.2f;
+        audioVolumeBegin = 0.2f;
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(audioVolume);
+        backgroundMusic.play();
 
         messageLabel = new Label("...", BaseGame.labelStyle);
         messageLabel.setColor(Color.LIME);
@@ -69,6 +106,7 @@ public class GameScreen extends BaseScreen {
         uiTable.add().expandX().expandY();
         uiTable.add(messageLabel).top();
         uiTable.add(restartButton).top();
+        uiTable.add(muteButton).top();
     }
 
     private List<Player> getPlayers() {
@@ -111,20 +149,17 @@ public class GameScreen extends BaseScreen {
             Cell cell = currentPlayer.getCell();
             switch (cell.getType()) {
                 case BLUE:
-                    cube.setCurrentEdge(0);
-                    cube.setActive(true);
+                    cube.reset();
                     currentPlayer.clearCell();
                     currentPlayer.setSkipNextMove(true);
                     currentPlayer = getActivePlayer();
                     break;
                 case GREEN:
-                    cube.setCurrentEdge(0);
-                    cube.setActive(true);
+                    cube.reset();
                     currentPlayer.clearCell();
                     break;
                 case WHITE:
-                    cube.setCurrentEdge(0);
-                    cube.setActive(true);
+                    cube.reset();
                     currentPlayer.clearCell();
                     currentPlayer = getActivePlayer();
                     if (currentPlayer.isSkipNextMove()) {

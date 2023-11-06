@@ -1,5 +1,7 @@
 package ru.serioussem.wander.game.actor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.serioussem.gdx.base.actor.DragAndDropActor;
 import ru.serioussem.wander.game.constants.TypeCell;
@@ -11,6 +13,7 @@ public class Player extends DragAndDropActor {
     private final String color;
     private boolean isSkipNextMove;
     private final TypeCell typeCell;
+    private final Sound pop;
     public Player(float x, float y, Stage s, String colorPlayer) {
         super(x, y, s);
         loadTexture("assets/image/"+colorPlayer+"-player.png");
@@ -20,6 +23,7 @@ public class Player extends DragAndDropActor {
         setDraggable(false);
         setCurrentPosition(0);
         this.color = colorPlayer;
+        pop = Gdx.audio.newSound(Gdx.files.internal("assets/sound/pop.wav"));
     }
 
     public String getColorPlayer() {
@@ -76,17 +80,6 @@ public class Player extends DragAndDropActor {
         boundToWorld();
     }
 
-//    @Override
-//    public void onDragStart() {
-//
-//        if (hasCell()) {
-//            System.out.println("has Cell");
-//            Cell targetCell = getCell();
-//            targetCell.setTargetable(true);
-//            clearCell();
-//        }
-//    }
-
     @Override
     public void onDrop() {
         if (hasDropTarget()) {
@@ -96,11 +89,10 @@ public class Player extends DragAndDropActor {
                 setDraggable(false);
                 setCell(cell);
                 setCurrentPosition(this.targetPosition);
+                pop.play(0.2f);
             } else {
                 moveToStart();
             }
-//            setCell(cell);
-//            cell.setTargetable(false);
         } else {
             //avoid blocking view of player when incorrect
             moveToStart();
