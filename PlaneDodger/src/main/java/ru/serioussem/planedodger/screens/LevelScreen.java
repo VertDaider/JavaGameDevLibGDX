@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.planedodger.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -6,8 +6,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.*;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.planedodger.actors.*;
 
 public class LevelScreen extends BaseScreen {
     Plane plane;
@@ -15,8 +17,6 @@ public class LevelScreen extends BaseScreen {
     float starSpawnInterval;
     int score;
     Label scoreLabel;
-    private final String classStar = "ru.serioussem.actors.Star";
-    private final String classEnemy = "ru.serioussem.actors.Enemy";
     float enemyTimer;
     float enemySpawnInterval;
     float enemySpeed;
@@ -80,7 +80,7 @@ public class LevelScreen extends BaseScreen {
             starTimer = 0;
         }
 
-        for (BaseActor star : BaseActor.getList(mainStage, classStar)) {
+        for (BaseActor star : BaseActor.getList(mainStage, Star.class.getName())) {
             if (plane.overlaps(star)) {
                 star.remove();
                 score++;
@@ -106,7 +106,7 @@ public class LevelScreen extends BaseScreen {
             if (enemySpeed > 400) enemySpeed = 400;
         }
 
-        for (BaseActor enemy : BaseActor.getList(mainStage, classEnemy)) {
+        for (BaseActor enemy : BaseActor.getList(mainStage, Enemy.class.getName())) {
             if (plane.overlaps(enemy)) {
                 Explosion ex = new Explosion(0, 0, mainStage);
                 ex.centerAtActor(plane);

@@ -1,8 +1,9 @@
-package ru.serioussem.actors;
+package ru.serioussem.planedodger.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
-public class Ground extends BaseActor{
+public class Ground extends BaseActor {
     public Ground(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("assets/ground.png");

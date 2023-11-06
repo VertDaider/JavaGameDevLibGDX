@@ -1,8 +1,9 @@
-package ru.serioussem.actors;
+package ru.serioussem.planedodger.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Star extends BaseActor {
     public Star(float x, float y, Stage s) {

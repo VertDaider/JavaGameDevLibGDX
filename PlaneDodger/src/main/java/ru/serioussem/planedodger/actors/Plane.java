@@ -1,9 +1,9 @@
-package ru.serioussem.actors;
+package ru.serioussem.planedodger.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Plane extends BaseActor {
-    private final String classGround = "ru.serioussem.actors.Ground";
 
     public Plane(float x, float y, Stage s) {
         super(x, y, s);
@@ -27,7 +27,7 @@ public class Plane extends BaseActor {
         applyPhysics(dt);
 
         //stop plane from passing through the ground
-        for (BaseActor g : BaseActor.getList(this.getStage(), classGround)) {
+        for (BaseActor g : BaseActor.getList(this.getStage(), Ground.class.getName())) {
             if (this.overlaps(g)) {
                 setSpeed(0);
                 preventOverlap(g);

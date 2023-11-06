@@ -1,8 +1,8 @@
-package ru.serioussem.main;
+package ru.serioussem.planedodger.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.PlaneDodgerGame;
+import ru.serioussem.planedodger.PlaneDodgerGame;
 
 public class Launcher {
     public static void main(String[] args) {

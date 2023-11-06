@@ -1,6 +1,7 @@
-package ru.serioussem.actors;
+package ru.serioussem.planedodger.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Explosion extends BaseActor {
     public Explosion(float x, float y, Stage s) {
