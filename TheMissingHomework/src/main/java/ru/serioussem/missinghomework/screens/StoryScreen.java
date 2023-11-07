@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.missinghomework.screens;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -9,14 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.Background;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.DialogBox;
-import ru.serioussem.actors.Kelsoe;
-import ru.serioussem.scene.Scene;
-import ru.serioussem.scene.SceneActions;
-import ru.serioussem.scene.SceneSegment;
+
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.missinghomework.actors.Background;
+import ru.serioussem.missinghomework.actors.DialogBox;
+import ru.serioussem.missinghomework.actors.Kelsoe;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.missinghomework.scene.Scene;
+import ru.serioussem.missinghomework.scene.SceneActions;
+import ru.serioussem.missinghomework.scene.SceneSegment;
 
 public class StoryScreen extends BaseScreen {
     Scene scene;
@@ -41,7 +43,7 @@ public class StoryScreen extends BaseScreen {
         dialogBox.setVisible(false);
 
         continueKey = new BaseActor(0, 0, uiStage);
-        continueKey.loadTexture("key-C.png");
+        continueKey.loadTexture("assets/key-C.png");
         continueKey.setSize(32, 32);
         continueKey.setVisible(false);
 
@@ -58,7 +60,7 @@ public class StoryScreen extends BaseScreen {
         uiTable.add(dialogBox);
 
         theEnd = new BaseActor(0, 0, mainStage);
-        theEnd.loadTexture("the-end.png");
+        theEnd.loadTexture("assets/the-end.png");
         theEnd.centerAtActor(background);
         theEnd.setScale(2);
         theEnd.setOpacity(0);

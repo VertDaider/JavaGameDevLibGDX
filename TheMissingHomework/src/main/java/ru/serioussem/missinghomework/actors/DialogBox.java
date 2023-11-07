@@ -1,10 +1,11 @@
-package ru.serioussem.actors;
+package ru.serioussem.missinghomework.actors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
-import ru.serioussem.BaseGame;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
 
 public class DialogBox extends BaseActor {
     private Label dialogLabel;
@@ -12,7 +13,7 @@ public class DialogBox extends BaseActor {
 
     public DialogBox(float x, float y, Stage s) {
         super(x, y, s);
-        loadTexture("dialog-translucent.png");
+        loadTexture("assets/dialog-translucent.png");
         dialogLabel = new Label("", BaseGame.labelStyle);
         dialogLabel.setWrap(true);
         dialogLabel.setAlignment(Align.topLeft);

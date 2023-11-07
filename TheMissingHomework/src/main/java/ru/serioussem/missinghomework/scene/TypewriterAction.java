@@ -1,6 +1,6 @@
-package ru.serioussem.scene;
+package ru.serioussem.missinghomework.scene;
 
-import ru.serioussem.actors.DialogBox;
+import ru.serioussem.missinghomework.actors.DialogBox;
 
 public class TypewriterAction extends SetTextAction {
     private float elapsedTime;

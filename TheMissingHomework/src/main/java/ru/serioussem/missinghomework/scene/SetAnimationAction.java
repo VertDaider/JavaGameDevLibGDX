@@ -1,8 +1,8 @@
-package ru.serioussem.scene;
+package ru.serioussem.missinghomework.scene;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import ru.serioussem.actors.BaseActor;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class SetAnimationAction extends Action {
     protected Animation animationToDisplay;

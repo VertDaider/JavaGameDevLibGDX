@@ -1,23 +1,23 @@
-package ru.serioussem.screens;
+package ru.serioussem.missinghomework.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import ru.serioussem.BaseGame;
-import ru.serioussem.HomeworkGame;
-import ru.serioussem.actors.BaseActor;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
 
-public class MenuScreen extends BaseScreen{
+public class MenuScreen extends BaseScreen {
     @Override
     public void initialize() {
         BaseActor background = new BaseActor(0,0,mainStage);
-        background.loadTexture("notebook.jpg");
+        background.loadTexture("assets/notebook.jpg");
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         BaseActor title = new BaseActor(0,0,mainStage);
-        title.loadTexture("missing-homework.png");
+        title.loadTexture("assets/missing-homework.png");
 
         TextButton startButton = new TextButton("Start", BaseGame.textButtonStyle);
 

@@ -1,6 +1,7 @@
-package ru.serioussem;
+package ru.serioussem.missinghomework;
 
-import ru.serioussem.screens.MenuScreen;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.missinghomework.screens.MenuScreen;
 
 public class HomeworkGame extends BaseGame {
 

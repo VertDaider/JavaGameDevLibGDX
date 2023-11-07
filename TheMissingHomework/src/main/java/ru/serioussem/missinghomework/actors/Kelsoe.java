@@ -1,7 +1,8 @@
-package ru.serioussem.actors;
+package ru.serioussem.missinghomework.actors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Kelsoe extends BaseActor {
     public Animation normal;
@@ -11,9 +12,9 @@ public class Kelsoe extends BaseActor {
 
     public Kelsoe(float x, float y, Stage s) {
         super(x, y, s);
-        normal = loadTexture("kelsoe-normal.png");
-        sad = loadTexture("kelsoe-sad.png");
-        lookLeft = loadTexture("kelsoe-look-left.png");
-        lookRight = loadTexture("kelsoe-look-right.png");
+        normal = loadTexture("assets/kelsoe-normal.png");
+        sad = loadTexture("assets/kelsoe-sad.png");
+        lookLeft = loadTexture("assets/kelsoe-look-left.png");
+        lookRight = loadTexture("assets/kelsoe-look-right.png");
     }
 }

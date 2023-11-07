@@ -1,11 +1,11 @@
-package ru.serioussem.scene;
+package ru.serioussem.missinghomework.scene;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
-import ru.serioussem.actors.BaseActor;
 
 public class SceneActions extends Actions {
     public static Action setText(String s) {
