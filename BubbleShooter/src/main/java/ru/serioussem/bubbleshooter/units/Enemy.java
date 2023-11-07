@@ -1,6 +1,6 @@
-package units;
+package ru.serioussem.bubbleshooter.units;
 
-import screens.GameScreen;
+import ru.serioussem.bubbleshooter.screens.GameScreen;
 
 public class Enemy extends Bubble {
     public Enemy(GameScreen gameScreen) {

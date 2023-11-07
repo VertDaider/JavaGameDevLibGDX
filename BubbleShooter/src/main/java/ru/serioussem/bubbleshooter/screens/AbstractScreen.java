@@ -1,4 +1,4 @@
-package screens;
+package ru.serioussem.bubbleshooter.screens;
 
 import com.badlogic.gdx.Screen;
 

@@ -1,14 +1,11 @@
-package screens;
+package ru.serioussem.bubbleshooter.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import units.Player;
+import ru.serioussem.bubbleshooter.units.Player;
 
 public class GameScreen extends AbstractScreen {
     private SpriteBatch batch;

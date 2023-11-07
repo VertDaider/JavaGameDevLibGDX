@@ -1,4 +1,4 @@
-package screens;
+package ru.serioussem.bubbleshooter.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen extends AbstractScreen{
+public class MenuScreen extends AbstractScreen {
     private SpriteBatch batch;
     private TextureAtlas atlas;
     private BitmapFont font24;
@@ -25,8 +25,8 @@ public class MenuScreen extends AbstractScreen{
 
     @Override
     public void show() {
-        atlas = new TextureAtlas("textures.pack");
-        font24 = new BitmapFont(Gdx.files.internal("jedi24.fnt"));
+        atlas = new TextureAtlas("assets/textures.pack");
+        font24 = new BitmapFont(Gdx.files.internal("assets/jedi24.fnt"));
         stage = new Stage();
         batch = new SpriteBatch();
 

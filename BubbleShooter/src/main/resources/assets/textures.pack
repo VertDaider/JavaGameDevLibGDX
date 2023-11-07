@@ -1,0 +1,12 @@
+
+BubbleShooter1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button
+  rotate: false
+  xy: 2, 2
+  size: 126, 58
+  orig: 126, 58
+  offset: 0, 0
+  index: -1

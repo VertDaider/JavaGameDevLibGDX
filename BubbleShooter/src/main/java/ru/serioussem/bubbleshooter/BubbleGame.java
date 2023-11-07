@@ -1,9 +1,9 @@
-package com.serious.bubble;
+package ru.serioussem.bubbleshooter;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screens.ScreenManager;
+import ru.serioussem.bubbleshooter.screens.ScreenManager;
 
 public class BubbleGame extends Game {
 	SpriteBatch batch;
