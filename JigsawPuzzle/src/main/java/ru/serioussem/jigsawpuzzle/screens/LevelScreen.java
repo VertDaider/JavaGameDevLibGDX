@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.jigsawpuzzle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import ru.serioussem.BaseGame;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.PuzzleArea;
-import ru.serioussem.actors.PuzzlePiece;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.jigsawpuzzle.actors.PuzzleArea;
+import ru.serioussem.jigsawpuzzle.actors.PuzzlePiece;
 
 public class LevelScreen extends BaseScreen {
     private Label messageLabel;
@@ -65,7 +66,7 @@ public class LevelScreen extends BaseScreen {
 
     public void update(float dt) {
         boolean solved = true;
-        for (BaseActor actor : BaseActor.getList(mainStage, "ru.serioussem.actors.PuzzlePiece")) {
+        for (BaseActor actor : BaseActor.getList(mainStage, PuzzlePiece.class.getName())) {
             PuzzlePiece pp = (PuzzlePiece) actor;
 
             if (!pp.isCorrectlyPlaced()) {

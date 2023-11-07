@@ -1,6 +1,7 @@
-package ru.serioussem.actors;
+package ru.serioussem.jigsawpuzzle.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.DragAndDropActor;
 
 public class PuzzlePiece extends DragAndDropActor {
     private int row;
