@@ -1,6 +1,7 @@
-package ru.serioussem;
+package ru.serioussem.spacerocks;
 
-import ru.serioussem.screens.LevelScreen;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.spacerocks.screens.LevelScreen;
 
 public class SpaceGame extends BaseGame {
 

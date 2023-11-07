@@ -1,21 +1,23 @@
-package ru.serioussem.screens;
+package ru.serioussem.spacerocks.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.Explosion;
-import ru.serioussem.actors.Rock;
-import ru.serioussem.actors.Spaceship;
+import ru.serioussem.spacerocks.actors.Explosion;
+import ru.serioussem.spacerocks.actors.Laser;
+import ru.serioussem.spacerocks.actors.Rock;
+import ru.serioussem.spacerocks.actors.Spaceship;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.screen.BaseScreen;
 
-public class LevelScreen extends BaseScreen{
+public class LevelScreen extends BaseScreen {
     private Spaceship spaceship;
     private boolean gameOver;
 
     @Override
     public void initialize() {
         BaseActor space = new BaseActor(0, 0,mainStage);
-        space.loadTexture("space.png");
+        space.loadTexture("assets/space.png");
         space.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         BaseActor.setWorldBounds(space);
         gameOver = false;
@@ -34,7 +36,7 @@ public class LevelScreen extends BaseScreen{
 
     @Override
     public void update(float dt) {
-        for (BaseActor rockActor: BaseActor.getList(mainStage, "ru.serioussem.actors.Rock")) {
+        for (BaseActor rockActor: BaseActor.getList(mainStage, Rock.class.getName())) {
             if (rockActor.overlaps(spaceship)) {
                 if (spaceship.shieldPower <= 0) {
                     Explosion boom = new Explosion(0,0,mainStage);
@@ -42,7 +44,7 @@ public class LevelScreen extends BaseScreen{
                     spaceship.remove();
                     spaceship.setPosition(-1000,-1000);
                     BaseActor messageLose = new BaseActor(0,0, uiStage);
-                    messageLose.loadTexture("message-lose.png");
+                    messageLose.loadTexture("assets/message-lose.png");
                     messageLose.centerAtPosition((float) Gdx.graphics.getWidth() / 2,(float) Gdx.graphics.getHeight() / 2);
                     messageLose.setOpacity(0);
                     messageLose.addAction( Actions.fadeIn(1) );
@@ -55,7 +57,7 @@ public class LevelScreen extends BaseScreen{
                 }
             }
 
-            for (BaseActor laserActor : BaseActor.getList(mainStage, "ru.serioussem.actors.Laser")) {
+            for (BaseActor laserActor : BaseActor.getList(mainStage, Laser.class.getName())) {
                 if (laserActor.overlaps(rockActor)) {
                     Explosion boom = new Explosion(0,0,mainStage);
                     boom.centerAtActor(rockActor);
@@ -65,9 +67,9 @@ public class LevelScreen extends BaseScreen{
             }
         }
 
-        if (!gameOver && BaseActor.count(mainStage,"ru.serioussem.actors.Rock" ) == 0) {
+        if (!gameOver && BaseActor.count(mainStage,Rock.class.getName() ) == 0) {
             BaseActor messageWin = new BaseActor(0,0,mainStage);
-            messageWin.loadTexture("message-win.png");
+            messageWin.loadTexture("assets/message-win.png");
             messageWin.centerAtPosition((float) Gdx.graphics.getWidth() / 2,(float) Gdx.graphics.getHeight() / 2);
             messageWin.setOpacity(0);
             messageWin.addAction(Actions.fadeIn(1));

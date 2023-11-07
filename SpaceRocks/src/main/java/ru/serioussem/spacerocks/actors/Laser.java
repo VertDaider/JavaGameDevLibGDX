@@ -1,13 +1,14 @@
-package ru.serioussem.actors;
+package ru.serioussem.spacerocks.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Laser extends BaseActor {
     public Laser(float x, float y, Stage s) {
         super(x, y, s);
 
-        loadTexture("laser.png");
+        loadTexture("assets/laser.png");
         addAction(Actions.delay(1));
         addAction(Actions.after(Actions.fadeOut(0.5f)));
         addAction(Actions.after(Actions.removeActor()));
@@ -21,7 +22,6 @@ public class Laser extends BaseActor {
     public void act(float dt) {
         super.act(dt);
         applyPhysics(dt);
-//        wrapAroundWorld();
     }
 
 }

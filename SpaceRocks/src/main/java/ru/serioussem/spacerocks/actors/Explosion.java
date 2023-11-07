@@ -1,11 +1,12 @@
-package ru.serioussem.actors;
+package ru.serioussem.spacerocks.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Explosion extends BaseActor {
     public Explosion(float x, float y, Stage s) {
         super(x, y, s);
-        loadAnimationFromSheet("explosion.png", 6, 6, 0.03f, false);
+        loadAnimationFromSheet("assets/explosion.png", 6, 6, 0.03f, false);
     }
 
     public void act(float dt) {

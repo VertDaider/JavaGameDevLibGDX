@@ -1,9 +1,10 @@
-package ru.serioussem.actors;
+package ru.serioussem.spacerocks.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Spaceship extends BaseActor {
     private Thrusters thrusters;
@@ -12,7 +13,7 @@ public class Spaceship extends BaseActor {
 
     public Spaceship(float x, float y, Stage s) {
         super(x, y, s);
-        loadTexture("spaceship.png");
+        loadTexture("assets/spaceship.png");
         setBoundaryPolygon(8);
 
         setAcceleration(200);
