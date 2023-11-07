@@ -1,4 +1,4 @@
-package ru.serioussem.actors;
+package ru.serioussem.rhythmtapper.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class Message extends BaseActor {
     public Animation perfect;

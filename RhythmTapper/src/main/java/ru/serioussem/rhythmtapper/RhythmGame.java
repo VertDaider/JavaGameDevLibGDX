@@ -1,6 +1,7 @@
-package ru.serioussem;
+package ru.serioussem.rhythmtapper;
 
-import ru.serioussem.screens.RhythmScreen;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.rhythmtapper.screens.RhythmScreen;
 
 public class RhythmGame extends BaseGame {
 

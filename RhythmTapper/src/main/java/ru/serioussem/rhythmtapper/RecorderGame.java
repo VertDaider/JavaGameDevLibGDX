@@ -1,6 +1,7 @@
-package ru.serioussem;
+package ru.serioussem.rhythmtapper;
 
-import ru.serioussem.screens.RecorderScreen;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.rhythmtapper.screens.RecorderScreen;
 
 public class RecorderGame extends BaseGame {
     public void create() {

@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.rhythmtapper.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,9 +6,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import ru.serioussem.BaseGame;
-import ru.serioussem.FileUtils;
-import ru.serioussem.SongData;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.rhythmtapper.FileUtils;
+import ru.serioussem.rhythmtapper.SongData;
 
 public class RecorderScreen extends BaseScreen {
     Music music;

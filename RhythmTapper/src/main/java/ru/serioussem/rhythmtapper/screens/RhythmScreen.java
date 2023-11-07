@@ -1,4 +1,4 @@
-package ru.serioussem.screens;
+package ru.serioussem.rhythmtapper.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import ru.serioussem.BaseGame;
-import ru.serioussem.SongData;
-import ru.serioussem.actors.BaseActor;
-import ru.serioussem.actors.FallingBox;
-import ru.serioussem.actors.Message;
-import ru.serioussem.actors.TargetBox;
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
+import ru.serioussem.gdx.base.screen.BaseScreen;
+import ru.serioussem.rhythmtapper.SongData;
+import ru.serioussem.rhythmtapper.actors.FallingBox;
+import ru.serioussem.rhythmtapper.actors.Message;
+import ru.serioussem.rhythmtapper.actors.TargetBox;
 
 import java.util.ArrayList;
 import java.util.Collections;

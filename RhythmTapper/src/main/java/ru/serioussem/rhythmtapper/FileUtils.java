@@ -1,4 +1,4 @@
-package ru.serioussem;
+package ru.serioussem.rhythmtapper;
 
 import com.badlogic.gdx.files.FileHandle;
 

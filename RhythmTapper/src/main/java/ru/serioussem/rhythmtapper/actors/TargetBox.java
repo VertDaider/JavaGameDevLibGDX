@@ -1,4 +1,4 @@
-package ru.serioussem.actors;
+package ru.serioussem.rhythmtapper.actors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -6,7 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
-import ru.serioussem.BaseGame;
+
+import ru.serioussem.gdx.base.actor.BaseActor;
+import ru.serioussem.gdx.base.game.BaseGame;
 
 public class TargetBox extends BaseActor {
     public TargetBox(float x, float y, Stage s, String letter, Color color) {

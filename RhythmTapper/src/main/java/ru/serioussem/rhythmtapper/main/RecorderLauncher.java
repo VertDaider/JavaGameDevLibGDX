@@ -1,8 +1,8 @@
-package ru.serioussem.main;
+package ru.serioussem.rhythmtapper.main;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.serioussem.RecorderGame;
+import ru.serioussem.rhythmtapper.RecorderGame;
 
 public class RecorderLauncher {
     public static void main(String[] args) {

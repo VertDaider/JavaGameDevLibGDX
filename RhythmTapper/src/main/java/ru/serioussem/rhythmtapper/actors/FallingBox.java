@@ -1,9 +1,10 @@
-package ru.serioussem.actors;
+package ru.serioussem.rhythmtapper.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.graphics.Color;
+import ru.serioussem.gdx.base.actor.BaseActor;
 
 public class FallingBox extends BaseActor {
     public FallingBox(float x, float y, Stage s) {
