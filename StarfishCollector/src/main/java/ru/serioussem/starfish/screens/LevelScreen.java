@@ -67,7 +67,7 @@ public class LevelScreen extends BaseScreen {
             }
             instrumental.dispose();
             oceanSurf.dispose();
-            StarfishGame.setActiveScreen(new LevelScreen());
+            StarfishGame.setActiveScreen(new MenuScreen());
             return true;
         });
 
@@ -182,7 +182,7 @@ public class LevelScreen extends BaseScreen {
     }
 
     private void checkCollision() {
-        for (BaseActor rockActor : BaseActor.getList(mainStage, classRock)) {
+        for (BaseActor rockActor : BaseActor.getList(mainStage, Rock.class.getName())) {
             turtle.preventOverlap(rockActor);
         }
 

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class GameScreen extends BaseScreen {
     private static final int FINISH_CELL_POSITION = 50;
-    private static final int COUNT_PLAYERS = 2;
+    private static final int COUNT_PLAYERS = 3;
     int activePlayerIndex;
     private Label cellLabel;
     Player currentPlayer;
@@ -35,7 +35,6 @@ public class GameScreen extends BaseScreen {
 
     private float audioVolume;
     private float audioVolumeBegin;
-    private Sound playerDrop;
     private Music backgroundMusic;
 
     @Override
