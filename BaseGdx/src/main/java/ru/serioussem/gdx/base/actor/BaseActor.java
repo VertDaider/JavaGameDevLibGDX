@@ -30,7 +30,7 @@ public class BaseActor extends Group {
     private boolean animationPaused;
 
     protected Vector2 velocityVec;
-    private Vector2 accelerationVec;
+    protected Vector2 accelerationVec;
     private float acceleration;
     private float maxSpeed;
     private float deceleration;
