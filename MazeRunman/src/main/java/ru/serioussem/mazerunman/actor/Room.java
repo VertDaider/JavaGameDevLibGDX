@@ -3,6 +3,8 @@ package ru.serioussem.mazerunman.actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.serioussem.gdx.base.actor.BaseActor;
 
+import java.util.ArrayList;
+
 
 public class Room extends BaseActor {
     public static final int NORTH = 0;
@@ -12,10 +14,12 @@ public class Room extends BaseActor {
     public static int[] directionArray = {NORTH, SOUTH, EAST, WEST};
     private Wall[] wallArray;
     private Room[] neighborArray;
+    private boolean connected;
 
     public Room(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("assets/dirt.png");
+        connected = false;
 
         float w = getWidth();
         float h = getHeight();
@@ -54,6 +58,35 @@ public class Room extends BaseActor {
         removeWallsBetween(neighborArray[direction]);
     }
 
+    public Room getRandomUnconnectedNeighbor() {
+        ArrayList<Integer> directionList = new ArrayList<>();
+
+        for (int direction : directionArray) {
+            if (hasNeighbor(direction) && !getNeighbor(direction).isConnected())
+                directionList.add(direction);
+        }
+
+        int directionIndex = (int) Math.floor(Math.random() * directionList.size());
+        int direction = directionList.get(directionIndex);
+        return getNeighbor(direction);
+    }
+
+    public boolean hasUnconnectedNeighbor() {
+        for (int direction : directionArray) {
+            if (hasNeighbor(direction) && !getNeighbor(direction).isConnected())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
     public void removeWallsBetween(Room other) {
         if (other == neighborArray[NORTH]) {
             this.wallArray[NORTH].remove();
@@ -61,7 +94,7 @@ public class Room extends BaseActor {
         } else if (other == neighborArray[SOUTH]) {
             this.wallArray[SOUTH].remove();
             other.wallArray[NORTH].remove();
-        } else  if (other == neighborArray[EAST]) {
+        } else if (other == neighborArray[EAST]) {
             this.wallArray[EAST].remove();
             other.wallArray[WEST].remove();
         } else {

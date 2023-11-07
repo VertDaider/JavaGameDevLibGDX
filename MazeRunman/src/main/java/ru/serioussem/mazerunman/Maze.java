@@ -3,6 +3,8 @@ package ru.serioussem.mazerunman;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.serioussem.mazerunman.actor.Room;
 
+import java.util.ArrayList;
+
 public class Maze {
     private Room[][] roomGrid;
 
@@ -35,6 +37,51 @@ public class Maze {
                     room.setNeighbor(Room.WEST, roomGrid[gridX - 1][gridY]);
                 if (gridX < roomCountX - 1)
                     room.setNeighbor(Room.EAST, roomGrid[gridX + 1][gridY]);
+            }
+        }
+
+        ArrayList<Room> activeRoomList = new ArrayList<>();
+
+        Room currentRoom = roomGrid[0][0];
+        currentRoom.setConnected(true);
+        activeRoomList.add(0, currentRoom);
+
+        // chance of returning to a random connected room
+        // to create a branching path from that room
+        float branchProbability = 0.5f;
+
+        while (activeRoomList.size() > 0) {
+            if (Math.random() < branchProbability) {
+                // get random previosly visited room
+                int roomIndex = (int) (Math.random() * activeRoomList.size());
+                currentRoom = activeRoomList.get(roomIndex);
+            } else {
+                // get the most recently visited room
+                currentRoom = activeRoomList.get(activeRoomList.size() - 1);
+            }
+
+            if (currentRoom.hasUnconnectedNeighbor()) {
+                Room nextRoom = currentRoom.getRandomUnconnectedNeighbor();
+                currentRoom.removeWallsBetween(nextRoom);
+                nextRoom.setConnected(true);
+                activeRoomList.add(0, nextRoom);
+            } else {
+                // this room has no more adjacent unconnected rooms
+                // so there is no reason to keep it in the list
+                activeRoomList.remove(currentRoom);
+            }
+        }
+
+        int wallsToRemove = 48;
+        while (wallsToRemove > 0) {
+            int gridX = (int) Math.floor(Math.random() * roomCountX);
+            int gridY = (int) Math.floor(Math.random() * roomCountY);
+            int direction = (int) Math.floor(Math.random() * 4);
+            Room room = roomGrid[gridX][gridY];
+
+            if (room.hasNeighbor(direction) && room.hasWall(direction)) {
+                room.removeWalls(direction);
+                wallsToRemove--;
             }
         }
     }
