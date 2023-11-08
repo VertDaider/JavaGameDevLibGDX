@@ -1,6 +1,7 @@
 package ru.serioussem.mazerunman;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.serioussem.gdx.base.actor.BaseActor;
 import ru.serioussem.mazerunman.actor.Room;
 
 import java.util.ArrayList;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 public class Maze {
     private Room[][] roomGrid;
 
-    private final int roomCountX = 24;
-    private final int roomCountY = 20;
+    private final int roomCountX = 20;
+    private final int roomCountY = 16;
     private final int roomWidth = 64;
     private final int roomHeight = 64;
 
@@ -88,6 +89,21 @@ public class Maze {
 
     public Room getRoom(int gridX, int gridY) {
         return roomGrid[gridX][gridY];
+    }
+
+    public Room getRoom(BaseActor actor) {
+        int gridX = Math.round(actor.getX() / roomWidth);
+        int gridY = Math.round(actor.getY() / roomHeight);
+        return getRoom(gridX, gridY);
+    }
+
+    public void resetRooms() {
+        for (int gridY = 0; gridY < roomCountY; gridY++) {
+            for (int gridX = 0; gridX < roomCountX; gridX++) {
+                roomGrid[gridX][gridY].setVisited(false);
+                roomGrid[gridX][gridY].setPreviousRoom(null);
+            }
+        }
     }
 
     public int getRoomWidth() {

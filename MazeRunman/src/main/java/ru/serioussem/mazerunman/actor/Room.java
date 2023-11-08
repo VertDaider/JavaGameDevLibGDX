@@ -16,6 +16,9 @@ public class Room extends BaseActor {
     private Room[] neighborArray;
     private boolean connected;
 
+    private boolean visited;
+    private Room previousRoom;
+
     public Room(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("assets/dirt.png");
@@ -34,7 +37,7 @@ public class Room extends BaseActor {
         wallArray[EAST] = new Wall(x + w - t, y, t, h, s);
 
         neighborArray = new Room[4]; // contents of this array will be initialized by Maze class
-
+        visited = false;
     }
 
     public void setNeighbor(int direction, Room neighbor) {
@@ -47,6 +50,32 @@ public class Room extends BaseActor {
 
     public Room getNeighbor(int direction) {
         return neighborArray[direction];
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public Room getPreviousRoom() {
+        return previousRoom;
+    }
+
+    public void setPreviousRoom(Room previousRoom) {
+        this.previousRoom = previousRoom;
+    }
+
+    //Used in pathfinding: locate accessible neighbors that have not yet been visited
+    public ArrayList<Room> unvisitedPathList() {
+        ArrayList<Room> list = new ArrayList<>();
+        for (int direction: directionArray) {
+            if (hasNeighbor(direction) && !hasWall(direction) && !getNeighbor(direction).isVisited())
+                list.add(getNeighbor(direction));
+        }
+        return list;
     }
 
     // check if wall in this direction still exists (has not been removed from stage)
